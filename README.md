@@ -146,5 +146,59 @@ List of 6
 
 We can then write that updated model to the same location (if, say, we want to trigger a git commit based workflow) or to a new location.
 
+### Current Holdings
+
+In order to obtain our current holdings, we need to have an account with a broker, and we need to be able to programmatically connect to our broker. 
+
+Our generic `get_positions`, `get_cash`, and `get_portfolio` functions take a single `connection` argument as an input. This input must be a list. The structure of the list can be whatever we define, but it has to have one element named `backend` that helps these functions determine which broker-specific functions to call to query the backend. 
+
+At present, we are only implementing the `alpaca` backend. This backend works both with paper and live alpaca accounts.
+
+You define an alpaca connection as follows:
+
+```r
+t_conn <- alpaca_connect("paper", api_key, api_secret)
+```
+
+`mode` can be either `paper`, `live` or `data`, because Alpaca implements these as separate API domains.
+
+Here's what the `t_conn` object looks like. Note the `backend` element. The rest of the object is specific to the details of how our `alpaca_*` functions connect to the broker.
+
+```
+> t_conn
+$backend
+[1] "alpaca"
+
+$domain
+[1] "https://paper-api.alpaca.markets"
+
+$headers
+<request>
+Headers:
+* APCA-API-KEY-ID: [REDACTED]
+* APCA-API-SECRET-KEY: [REDACTED]
+```
+
+
+Once we have our connection, we can obtain our portfolio holdings as follows:
+
+```r
+get_portfolio(t_conn)
+```
+
+The result is a list of two data frames, one called `cash` and the other called `assets`, which are analogous to our portfolio model elements.
+
+```
+> get_portfolio(t_conn)
+$cash
+  currency quantity
+1      USD 99908.33
+
+$assets
+  symbol quantity
+1   AAPL        1
+2    GME        1
+3     VT       -1
+```
 
 
