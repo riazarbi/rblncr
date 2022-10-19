@@ -8,7 +8,7 @@ It should be possible to rebalance your equity portfolio by changing the content
 
 ## WIP Notice
 
-This repo is a work in progress. The rationale for the proect is covered in this [blog post](https://riazarbi.github.io/quant/portfoli-model-spec/). Everything in this repo (including this README) is likely to change dramatically as I code through the problem. 
+This repo is a work in progress. The rationale for the project is covered in this [blog post](https://riazarbi.github.io/quant/portfoli-model-spec/). Everything in this repo (including this README) is likely to change dramatically as I code through the problem. 
 
 ## Basic elements
 
