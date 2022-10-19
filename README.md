@@ -79,8 +79,8 @@ asset_weights <- data.frame(symbol = c("AAPL","GOOG"), percent = c(80.5,9.5), to
 
 sample_portfolio <- create_portfolio_model("sample_portfolio",
                              "create from function",
-                             cash = list(percent = 10, tolerance = 0),
-                             asset_weights)
+                             cash = cash,
+                             asset_weights = asset_weights)
 ```
 
 Here's the actual structure of the object:
