@@ -7,7 +7,7 @@ assets:
 - symbol: AAPL
   percent: 80.5
   tolerance: 2.0
-- symbol: GOOG
+- symbol: MSFT
   percent: 9.5
   tolerance: 2.0
 created_at: 2022-10-19T10:08:50

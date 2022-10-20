@@ -12,16 +12,18 @@ This repo is a work in progress. The rationale for the project is covered in thi
 
 ## Basic elements
 
-- Portfolio Model Specification  
-- tooling to retrieve current holdings from broker  
-- trade generation engine to compute required trades to get the current holdings to the model specification  
-- trade submission tooling to actually submit trades to broker  
+- Portfolio model specification  
+- Tooling to retrieve current holdings from broker  
+- Portfolio solver to tell us what needs to happen to balance our portfolio
+- Trade generation engine to generate required trades to get the current holdings to the model specification  
+- Trade submission tooling to actually submit trades to broker  
 
 ## Dev Steps
 
-[ ] Develop portfolio model spec and tooling  
-[ ] Select initial broker to develop against  
-[ ] Write functions to obtain portfolio holdings from broker  
+[X] Develop portfolio model spec and tooling  
+[X] Select initial broker to develop against  
+[X] Write functions to obtain portfolio holdings from broker  
+[X] Build portfolio solver  
 [ ] Build order generator  
 [ ] Write functions to submit orders to broker  
 [ ] Write tests  
@@ -111,7 +113,7 @@ save_portfolio_model(sample_portfolio, "inst/extdata/sample_portfolio.yaml")
 We can load a model from yaml
 
 ```r
-loaded_model <- load_portfolio_model("inst/extdata/sample_portfolio.yaml")
+loaded_model <- read_portfolio_model("inst/extdata/sample_portfolio.yaml")
 ```
 
 And we can check that it is a valid portfolio model object.
@@ -150,7 +152,7 @@ We can then write that updated model to the same location (if, say, we want to t
 
 In order to obtain our current holdings, we need to have an account with a broker, and we need to be able to programmatically connect to our broker. 
 
-Our generic `get_positions`, `get_cash`, and `get_portfolio` functions take a single `connection` argument as an input. This input must be a list. The structure of the list can be whatever we define, but it has to have one element named `backend` that helps these functions determine which broker-specific functions to call to query the backend. 
+Our generic `get_positions`, `get_cash`, and `get_portfolio_current` functions take a single `connection` argument as an input. This input must be a list. The structure of the list can be whatever we define, but it has to have one element named `backend` that helps these functions determine which broker-specific functions to call to query the backend. 
 
 At present, we are only implementing the `alpaca` backend. This backend works both with paper and live alpaca accounts.
 
@@ -183,13 +185,13 @@ Headers:
 Once we have our connection, we can obtain our portfolio holdings as follows:
 
 ```r
-get_portfolio(t_conn)
+get_portfolio_current(t_conn)
 ```
 
 The result is a list of two data frames, one called `cash` and the other called `assets`, which are analogous to our portfolio model elements.
 
 ```
-> get_portfolio(t_conn)
+> get_portfolio_current(t_conn)
 $cash
   currency quantity
 1      USD 99908.33
@@ -200,5 +202,82 @@ $assets
 2    GME        1
 3     VT       -1
 ```
+
+## Solve for Portfolio Changes
+
+At this point, we have a `portfolio_model` object which specifies what portfolio holdings we desire, and we have a `portfolio_current` object which tells us what our current holdings are. 
+
+We can use these two objects, plus some market pricing data, to work out what we need to buy or sell to align our current holdings with our desired weights.
+
+```r
+portfolio_current <- get_portfolio_current(t_conn)
+portfolio_model <- read_portfolio_model("inst/extdata/sample_portfolio.yaml")
+```
+
+First we need to use the current holdings object and the model obect to create a portfolio targets object:
+
+```r
+portfolio_targets <- load_portfolio_targets(portfolio_current, portfolio_model)
+```
+
+This is just a stripped-down version of the information contained in the model and current data frames.
+
+```
+> portfolio_targets
+$cash
+  currency quantity_held percent_target tolerance
+1      USD      99908.33             10         0
+
+$assets
+  symbol quantity_held percent_target tolerance
+1   AAPL             1           80.5         2
+2    GME             1            0.0         0
+3     VT            -1            0.0         0
+4   MSFT             0            9.5         2
+```
+
+We currently have two incompatible measures of each symbol. The holdings quantity is number of shares held. The model quantity is percentage of portfolio. In order to link these two we need to translate them both into market values. To do this, we need to obtain price data on each symbol. We do this as late as possible to try minimize approximation error. 
+
+Because alpaca uses a different domain for their market data API, we create a new connection. Then we can price our portfolio.
+
+```r
+d_conn <- alpaca_connect("data", api_key, api_secret)
+portfolio_priced <- price_portfolio(portfolio_targets, "close", d_conn)
+```
+
+```
+> portfolio_priced
+$cash
+  currency quantity_held percent_target tolerance price value_held percent_held
+1      USD      99908.33             10         0     1   99908.33            1
+
+$assets
+  symbol quantity_held percent_target tolerance  price value_held percent_held
+1   AAPL             1           80.5         2 143.86     143.86            0
+2    GME             1            0.0         0  24.54      24.54            0
+3     VT            -1            0.0         0  80.67     -80.67            0
+4   MSFT             0            9.5         2 236.48       0.00            0
+```
+
+Now we have all the ingredients in place to solve for how each position needs to change in order to balance our portfolio.
+
+```r
+portfolio_changes <- solve_portfolio_priced(portfolio_priced)
+```
+
+```
+> portfolio_changes
+$cash
+  currency out_of_band optimal_value
+1      USD        TRUE      10119.12
+
+$assets
+  symbol  price out_of_band optimal_order optimal_value
+1   AAPL 143.86        TRUE           558      80417.74
+2    GME  24.54        TRUE            -1          0.00
+3     VT  80.67        TRUE             1          0.00
+4   MSFT 236.48        TRUE            40       9459.20
+```
+
 
 
