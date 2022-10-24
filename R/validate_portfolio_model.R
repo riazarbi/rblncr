@@ -6,12 +6,16 @@ validate_portfolio_model <- function(portfolio_model) {
   if(!(validate_string(portfolio_model$description))) {
     stop("description element must be a string")
   }
-  if(!validate_cash(portfolio_model$cash)) {
+  if(!(validate_cash(portfolio_model$cash))) {
     stop("cash element validation failed")
   }
   
   if(!validate_assets(portfolio_model$assets)  ) {
     stop("assets element validation failed")
+  }
+  
+  if(!validate_tolerance(portfolio_model$tolerance)) {
+    stop("tolerance validation failed")
   }
   
   if(!(validate_weights(portfolio_model$cash, portfolio_model$assets))) {

@@ -17,8 +17,8 @@ solve_portfolio_priced <- function(portfolio_priced) {
   assets$percent_deviation <- abs((assets$value_held - assets$value_target) / assets$value_target) * 100
   cash$percent_deviation <- abs((cash$value_held - cash$value_target) / cash$value_target) * 100
   
-  assets$out_of_band <- ifelse(assets$percent_deviation > assets$tolerance, T, F)
-  cash$out_of_band <- ifelse(cash$percent_deviation > cash$tolerance, T, F)
+  assets$out_of_band <- ifelse(assets$percent_deviation > portfolio_priced$tolerance, T, F)
+  cash$out_of_band <- ifelse(cash$percent_deviation > portfolio_priced$tolerance, T, F)
   
   assets$optimal_order <- ifelse(assets$out_of_band, assets$quantity_target - assets$quantity_held, 0)
   assets$optimal_value <- (assets$quantity_held + assets$optimal_order) * assets$price

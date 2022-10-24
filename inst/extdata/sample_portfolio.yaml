@@ -1,14 +1,13 @@
-name: port2
+name: sample_portfolio
 description: create from function
 cash:
   percent: 10.0
-  tolerance: 0.0
 assets:
 - symbol: AAPL
   percent: 80.5
-  tolerance: 2.0
-- symbol: MSFT
+- symbol: GOOG
   percent: 9.5
-  tolerance: 2.0
-created_at: 2022-10-19T10:08:50
-updated_at: 2022-10-19T10:08:50
+tolerance:
+  percent: 5.0
+created_at: 2022-10-24T11:22:01
+updated_at: 2022-10-24T11:22:01

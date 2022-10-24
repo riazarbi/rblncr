@@ -65,44 +65,48 @@ When loaded into R, a portfolio model is actually a nested R list, and has four 
 1. A name (string)  
 2. A description (string)  
 3. A desired cash allocation (list). The `cash` element must be a list with two elements, `percent`, and `tolerance`, both numeric.   
-4. A desired asset_weights (data frame). The `asset_weights` data frame must have three columns. `symbol`, `percent`, and `tolerance`.
+4. A desired asset_weights (data frame). The `asset_weights` data frame must have three columns. `symbol` and `percent`.
+5. A drift `tolerance`.
 
-In `cash` and `asset_weights`, `percent` refers to the desired percentage allocation to the respective asset. So, `percent = 30` means allocate 30% of the portfolio to the asset. `tolerance` refers to the acceptable relative level of deviation from the target percentage without triggering a trade. So, with `percent = 30` and `tolerance = 10`, your actual holding can vary by 10% of 30% (ie between 27.27% and 33%) without triggering a rebalance. 
+In `cash` and `asset_weights`, `percent` refers to the desired percentage allocation to the respective asset. So, `percent = 30` means allocate 30% of the portfolio to the asset. `tolerance` refers to the acceptable relative level of deviation from the target percentage without triggering a trade. So, with `percent = 30` and `tolerance = 10`, an actual holding can vary by 10% of 30% (ie between 27.27% and 33%) without triggering a rebalance. 
 
 Setting appropriate tolerances is something of an art, as it depends on the size of your portfolio, the number of allocations, and trade-offs between trade churn (which is expensive) and appropriate exposure. 
 
-We can either create a portfolio model by creating it directly in R, or we can ust manually create a `yaml` file.
+We can either create a portfolio model by creating it directly in R, or we can just manually create a `yaml` file.
 
 Here's how we might generate these elements:
 
 ```r
-cash <- list(percent = 10, tolerance = 2)
-asset_weights <- data.frame(symbol = c("AAPL","GOOG"), percent = c(80.5,9.5), tolerance = c(2,2))
+name <- "sample_portfolio"
+description <- "create from function"
+cash <- list(percent = 10)
+assets <- data.frame(symbol = c("AAPL","GOOG"), percent = c(80.5,9.5)). 
+tolerance <- list(percent = 5)
 
-sample_portfolio <- create_portfolio_model("sample_portfolio",
-                             "create from function",
+sample_portfolio <- create_portfolio_model(name = name,
+                             description = description,
                              cash = cash,
-                             asset_weights = asset_weights)
+                             assets = assets,
+                             tolerance = tolerance)
 ```
 
 Here's the actual structure of the object:
 
 ```
 > str(sample_portfolio)
-> str(sample_portfolio)
-List of 6
+List of 7
  $ name       : chr "sample_portfolio"
  $ description: chr "create from function"
- $ cash       :List of 2
-  ..$ percent  : num 10
-  ..$ tolerance: num 0
- $ assets     :'data.frame':	2 obs. of  3 variables:
-  ..$ symbol   : chr [1:2] "AAPL" "GOOG"
-  ..$ percent  : num [1:2] 80.5 9.5
-  ..$ tolerance: num [1:2] 2 2
- $ created_at : chr "2022-10-19T10:08:50"
- $ updated_at : chr "2022-10-19T10:08:50"
- ```
+ $ cash       :List of 1
+  ..$ percent: num 10
+ $ assets     :'data.frame':	2 obs. of  2 variables:
+  ..$ symbol : chr [1:2] "AAPL" "GOOG"
+  ..$ percent: num [1:2] 80.5 9.5
+ $ tolerance  :List of 1
+  ..$ percent: num 5
+ $ created_at : chr "2022-10-24T09:38:58"
+ $ updated_at : chr "2022-10-24T09:38:58"
+```
 
 We can save the model to yaml, and we can open that file in a text editor to verify that it looks like the example above.
 
@@ -132,18 +136,18 @@ Note that the `name` and `updated_at` elements have changed.
 
 ```
 > str(modified_model)
-List of 6
+List of 7
  $ name       : chr "port3"
  $ description: chr "create from function"
- $ cash       :List of 2
-  ..$ percent  : num 10
-  ..$ tolerance: num 0
- $ assets     :'data.frame':	2 obs. of  3 variables:
-  ..$ symbol   : chr [1:2] "AAPL" "GOOG"
-  ..$ percent  : num [1:2] 80.5 9.5
-  ..$ tolerance: num [1:2] 2 2
- $ created_at : chr "2022-10-19T10:08:50"
- $ updated_at : chr "2022-10-19T10:20:00"
+ $ cash       :List of 1
+  ..$ percent: num 10
+ $ assets     :'data.frame':	2 obs. of  2 variables:
+  ..$ symbol : chr [1:2] "AAPL" "GOOG"
+  ..$ percent: num [1:2] 80.5 9.5
+ $ tolerance  :List of 1
+  ..$ percent: num 5
+ $ created_at : chr "2022-10-24T09:38:58"
+ $ updated_at : chr "2022-10-24T09:40:02"
 ```
 
 We can then write that updated model to the same location (if, say, we want to trigger a git commit based workflow) or to a new location.
@@ -225,15 +229,19 @@ This is just a stripped-down version of the information contained in the model a
 ```
 > portfolio_targets
 $cash
-  currency quantity_held percent_target tolerance
-1      USD      99908.33             10         0
+  currency quantity_held percent_target
+1      USD      99908.33             10
 
 $assets
-  symbol quantity_held percent_target tolerance
-1   AAPL             1           80.5         2
-2    GME             1            0.0         0
-3     VT            -1            0.0         0
-4   MSFT             0            9.5         2
+  symbol quantity_held percent_target
+1   AAPL             1           80.5
+2    GME             1            0.0
+3     VT            -1            0.0
+4   GOOG             0            9.5
+
+$tolerance
+$tolerance$percent
+[1] 5
 ```
 
 We currently have two incompatible measures of each symbol. The holdings quantity is number of shares held. The model quantity is percentage of portfolio. In order to link these two we need to translate them both into market values. To do this, we need to obtain price data on each symbol. We do this as late as possible to try minimize approximation error. 
@@ -248,15 +256,15 @@ portfolio_priced <- price_portfolio(portfolio_targets, "close", d_conn)
 ```
 > portfolio_priced
 $cash
-  currency quantity_held percent_target tolerance price value_held percent_held
-1      USD      99908.33             10         0     1   99908.33            1
+  currency quantity_held percent_target price value_held percent_held
+1      USD      99908.33             10      1   99908.33            1
 
 $assets
-  symbol quantity_held percent_target tolerance  price value_held percent_held
-1   AAPL             1           80.5         2 143.86     143.86            0
-2    GME             1            0.0         0  24.54      24.54            0
-3     VT            -1            0.0         0  80.67     -80.67            0
-4   MSFT             0            9.5         2 236.48       0.00            0
+  symbol quantity_held percent_target  price value_held percent_held
+1   AAPL             1           80.5 143.86     143.86            0
+2    GME             1            0.0  24.54      24.54            0
+3     VT            -1            0.0  80.67     -80.67            0
+4   MSFT             0            9.5 236.48       0.00            0
 ```
 
 Now we have all the ingredients in place to solve for how each position needs to change in order to balance our portfolio.

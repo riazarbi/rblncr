@@ -12,7 +12,8 @@ load_portfolio_targets <- function(portfolio, portfolio_model) {
   cash <- dplyr::rename(cash, percent_target = percent)
   
   rebalancing_frame <- list(cash = cash,
-                            assets = assets) 
+                            assets = assets,
+                            tolerance = portfolio_model$tolerance) 
   
   return(rebalancing_frame)
 }
