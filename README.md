@@ -24,7 +24,7 @@ This repo is a work in progress. The rationale for the project is covered in thi
 [X] Select initial broker to develop against  
 [X] Write functions to obtain portfolio holdings from broker  
 [X] Build portfolio solver  
-[ ] Build order generator  
+[X] Build order generator  
 [ ] Write functions to submit orders to broker  
 [ ] Write tests  
 [ ] Write documentation  
@@ -264,28 +264,108 @@ $assets
 1   AAPL             1           80.5 143.86     143.86            0
 2    GME             1            0.0  24.54      24.54            0
 3     VT            -1            0.0  80.67     -80.67            0
-4   MSFT             0            9.5 236.48       0.00            0
+4   GOOG             0            9.5 236.48       0.00            0
 ```
 
 Now we have all the ingredients in place to solve for how each position needs to change in order to balance our portfolio.
 
 ```r
-portfolio_changes <- solve_portfolio_priced(portfolio_priced)
+portfolio_changes <- solve_portfolio(portfolio_priced)
 ```
 
 ```
 > portfolio_changes
 $cash
-  currency out_of_band optimal_value
-1      USD        TRUE      10119.12
+  currency quantity_held percent_target price value_held percent_held
+1      USD      99908.33             10     1   99908.33            1
+  out_of_band optimal_value
+1        TRUE      10151.88
 
 $assets
-  symbol  price out_of_band optimal_order optimal_value
-1   AAPL 143.86        TRUE           558      80417.74
-2    GME  24.54        TRUE            -1          0.00
-3     VT  80.67        TRUE             1          0.00
-4   MSFT 236.48        TRUE            40       9459.20
+  symbol quantity_held percent_target  price value_held percent_held
+1   AAPL             1           80.5 147.27     147.27            0
+2    GME             1            0.0  25.30      25.30            0
+3     VT            -1            0.0  81.96     -81.96            0
+4   GOOG             0            9.5 101.48       0.00            0
+  out_of_band optimal_order optimal_value
+1        TRUE           545      80409.42
+2        TRUE            -1          0.00
+3        TRUE             1          0.00
+4        TRUE            93       9437.64
+
+$tolerance
+$tolerance$percent
+[1] 5
 ```
 
+## Generate Orders
+
+Our `portfolio_changes` represent the frictionless changes required to balance our portfolio. However, there may not be sufficient liquidity in the market, or, worse, we may move the price of the market if our trades are large enough. So mitigate these risks, we can add some guard rails - make sure we keep our trades below a certain size, and keep our volume below a certain percentage of daily volume. 
+
+We accomplish this with a `constrain_orders` function.
+
+```r
+order_quantities <- constrain_orders(portfolio_changes, 
+                 d_conn,
+                 daily_vol_pct_limit = 0.02,
+                 symbol_trade_limit = 10000)
+```
+
+What's returned is a list of symbols along with their constrained order amounts and values.
+
+```
+> order_quantities
+  symbol order   value
+1   AAPL    66 9863.70
+2    GME    -1  -24.71
+3     VT     1   82.12
+4   GOOG    92 9473.24
+```
+
+## Assign Trade Limits
+
+Now we need to work out what price we are willing to pay or receive for these stock amounts. Up until now we have used yesterday's close to work out our changes. But yesterdays closing price could be quite far from where the market is currently trading at. We need to assign trade limits so that we don't pay too much (or receive too little) for our stock.
+
+```
+orders <- apply_price_limits(order_quantities, d_conn, spread_tolerance = 0.02)
+```
+
+The above function creates limit prices that are the midpoint between the last known bid and ask. The `spread_tolerance` parameter will ensure that no limit is placed if the bid-ask spread is too wide. The intention here is to prevent the placing of trades when there is little to no liquidity in the market. 
+
+The basic usage of `apply_price_limits` creates limit prices that are close to the market price _when the market is active and the stock is liquid_. But there are many ways to determine appropriate prices. For this reason we have an `override_values` parameter. You can use this to pass in a set of arbitrary values.
+
+```r
+overrides <- get_symbols_last_closing_price(order_quantities$symbol, d_conn) %>% 
+  dplyr::select(symbol, close) %>% 
+  dplyr::rename(limit = close)
+
+orders <- apply_price_limits(orders, override_values = overrides)
+```
+Here we see the limits:
+
+```
+> orders
+  symbol order  limit   value
+1   AAPL    66 149.45 9863.70
+2    GME    -1  24.71  -24.71
+3     VT     1  82.12   82.12
+4   GOOG    92 102.97 9473.24
+```
+
+The `apply_price_limits` function is **additive**. So, you can overlay limits in a procedural manner. This is especially useful if you have a fair value conviction for a particular stock and only want to buy it if it reaches a certain price.
+
+```r
+override_apple <- data.frame(symbol = "AAPL", limit = 160)
+orders <- apply_price_limits(orders, override_values = override_apple)
+```
+
+```
+> orders
+  symbol order  limit    value
+1   AAPL    66 160.00 10560.00
+2    GME    -1  24.71   -24.71
+3     VT     1  82.12    82.12
+4   GOOG    92 102.97  9473.24
+```
 
 
