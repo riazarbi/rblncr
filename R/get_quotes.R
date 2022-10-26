@@ -2,7 +2,9 @@ get_quotes <- function(symbols, connection) {
   
   # backend implementations
   if(connection$backend == "alpaca") {
-    quotes <- purrr::map_df(symbols, ~ alpaca_quote(.x, connection))
+    quotes <- purrr::map_df(symbols, 
+                            function(x) {
+                              alpaca_quote(x, connection)})
 
     quotes$symbol <- symbols
     quotes <- dplyr::select(quotes, symbol, ap, as, bp, bs)
