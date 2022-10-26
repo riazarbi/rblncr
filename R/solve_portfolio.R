@@ -20,7 +20,7 @@ solve_portfolio <- function(portfolio_priced, terse  = TRUE) {
   assets$out_of_band <- ifelse(assets$percent_deviation > portfolio_priced$tolerance, T, F)
   cash$out_of_band <- ifelse(cash$percent_deviation > portfolio_priced$tolerance, T, F)
   
-  assets$optimal_order <- ifelse(assets$out_of_band, assets$quantity_target - assets$quantity_held, 0)
+  assets$optimal_order <- assets$quantity_target - assets$quantity_held
   assets$optimal_value <- (assets$quantity_held + assets$optimal_order) * assets$price
   assets$optimal_order_value <- assets$price * assets$optimal_order
   
