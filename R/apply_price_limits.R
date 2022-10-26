@@ -1,4 +1,5 @@
-apply_price_limits <- function(order_quantities, connection = NA,  
+apply_price_limits <- function(order_quantities, 
+                               connection = NA,  
                                 spread_tolerance = 0.02,
                                 override_values = NULL) {
   
