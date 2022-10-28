@@ -25,7 +25,8 @@ This repo is a work in progress. The rationale for the project is covered in thi
 [X] Write functions to obtain portfolio holdings from broker  
 [X] Build portfolio solver  
 [X] Build order generator  
-[ ] Write functions to submit orders to broker  
+[X] Write functions to submit orders to broker  
+[ ] Write a wrapper function or script to automate rebalancing
 [ ] Write tests  
 [ ] Write documentation  
 [ ] Jump through RCMDCHECK hoops  
@@ -368,4 +369,52 @@ orders <- apply_price_limits(orders, override_values = override_apple)
 4   GOOG    92 102.97  9473.24
 ```
 
+## Trading
 
+You can pass an `orders` dataframe to the `alpaca_trader` function to submit them to the alpaca backend. This function will probably be wrapped into a generic `trader` switching function at a later stage. The function will compute limit prices, submit trades, cancel them if they are not filled, recalculate prices, and resubmit in a loop until all orders are filled ot timeout is reached.
+
+```r
+alpaca_trader(orders = orders,
+                          trader_life = 300,
+                          resubmit_interval = 5,
+                          trading_connection = t_conn,
+                          pricing_connection = d_conn,
+                          #pricing_overrides = overrides,
+                          verbose = TRUE)
+```
+
+Messages emitted to console: 
+
+```
+there are 2 new orders to fill
+ - pricing new orders
+ - submitting orders
+ - waiting 5 seconds for orders to fill
+ - attempting to cancel all unfilled orders
+ - all open orders cancelled
+ - getting order statuses
+ - calculating remaining order amounts
+there are 1 new orders to fill
+ - pricing new orders
+ - submitting orders
+ - waiting 5 seconds for orders to fill
+ - attempting to cancel all unfilled orders
+ - all open orders cancelled
+ - getting order statuses
+ - calculating remaining order amounts
+Wind-down attempt to cancel all unfilled orders
+Wind-down cancellation success
+
+NO ORDERS TO EXECUTE. EXITING.
+
+```
+
+The `trader` function returns a data frame, which is a log of each order submitted as well as the outcome. You can see that the first `TSLA` order wasn't fill
+ed, so the trader cancelled it and resubmitted at a recalculated price, which was subsequently filled.
+
+```
+            timestamp symbol order  limit filled status
+1 2022-10-27 18:39:12   TSLA  -218 225.04      0    new
+2 2022-10-27 18:39:12     VT  -576  83.33   -576 filled
+3 2022-10-27 18:39:18   TSLA  -218 224.48   -218 filled
+```
