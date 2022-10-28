@@ -41,6 +41,7 @@ apply_price_limits <- function(order_quantities,
   
   trade_limits <- dplyr::left_join(order_quantities, quotes, by = c("symbol"))
   trade_limits <- dplyr::mutate(trade_limits, limit = ifelse(is.na(limit.y), limit.x, limit.y))
+  trade_limits <- dplyr::mutate(trade_limits, limit = round(limit,2))
   trade_limits$value <- trade_limits$order * trade_limits$limit
   trade_limits <- dplyr::select(trade_limits, symbol, order, limit, value)
   return(trade_limits)

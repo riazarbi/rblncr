@@ -1,10 +1,12 @@
 
 
 constrain_orders <- function(solved_portfolio, 
-                                        connection, 
-                                        daily_vol_pct_limit = 0.02, 
-                                        symbol_trade_limit = 10000,
-                                        terse = TRUE) {
+                             connection, 
+                             daily_vol_pct_limit = 0.02, 
+                             min_order_size = 1000,
+                             max_order_size = 10000,
+                             terse = TRUE) {
+  
   # extract assets and symbols
   assets <- solved_portfolio$assets
   symbols <- solved_portfolio$assets$symbol
@@ -18,14 +20,18 @@ constrain_orders <- function(solved_portfolio,
   
   # work out the per-symbol constraints
   assets$volume_constraint <- floor(assets$daily_volume * daily_vol_pct_limit)
-  assets$value_constraint <- symbol_trade_limit
+  assets$max_value_constraint <- max_order_size
+  assets$min_value_constraint <- min_order_size
   
   # work out the constrained trade value
-  assets$value <- pmin(abs(assets$optimal_order_value), assets$value_constraint)
+  assets$value <- pmin(abs(assets$optimal_order_value), assets$max_value_constraint)
+  assets$value <- ifelse(assets$value > assets$min_value_constraint, assets$value, 0)
   # work out constrained order size
   assets$order <- floor(pmin(assets$volume_constraint, assets$value / assets$price))
   # recompute the constrained value for rounding issues
   assets$value <- assets$order * assets$price
+  
+  
   
   # correct the sign for sell orders
   assets$value <- ifelse(assets$optimal_order_value < 0, -assets$value, assets$value)
