@@ -1,5 +1,9 @@
 validate_portfolio_model <- function(portfolio_model) {
   
+  if(!(validate_portfolio_elements(portfolio_model))) {
+    stop("model contains unrecognised elements.")
+  } 
+  
   if(!(validate_string(portfolio_model$name))) {
     stop("name element must be a string")
   }
@@ -17,10 +21,13 @@ validate_portfolio_model <- function(portfolio_model) {
   if(!validate_tolerance(portfolio_model$tolerance)) {
     stop("tolerance validation failed")
   }
+  if(!validate_cooldown(portfolio_model$cooldown)) {
+    stop("cooldown validation failed")
+  }
   
   if(!(validate_weights(portfolio_model$cash, portfolio_model$assets))) {
     stop("asset weights plus cash weights don't exactly equal 100.")
   } 
-  
+
   return(TRUE)
 }
