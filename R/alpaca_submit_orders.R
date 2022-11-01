@@ -26,9 +26,7 @@ alpaca_submit_orders <- function(orders, alpaca_connection) {
     submissions <- purrr::map(order_list, 
                               function(order) 
                               {
-                                # try be gentle to the API
-                                #Sys.sleep(runif(1, min = 1, max = length(order_list)));
-                                
+
                                 httr::POST("https://paper-api.alpaca.markets/v2/orders", 
                                            body = as.list(order),
                                            encode = "json",
@@ -37,8 +35,9 @@ alpaca_submit_orders <- function(orders, alpaca_connection) {
     )
     submission_status <- purrr::map_dbl(submissions, ~ .x$status)
     orders_for_submission$status <- submission_status
-    orders_for_submission$status <- ifelse(orders_for_submission$status ==200, "submitted", "rejected")
+    orders_for_submission$status <- ifelse(orders_for_submission$status == 200, "submitted", "rejected")
     orders_for_submission
+    
     submissions_df <- purrr::map_df(submissions, httr::content)
     submissions_short <- dplyr::select(submissions_df, symbol, id, status)
     
