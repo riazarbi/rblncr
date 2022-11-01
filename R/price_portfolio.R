@@ -1,6 +1,6 @@
 
 
-price_portfolio <- function(portfolio, price_type, connection) {
+price_portfolio <- function(portfolio, price_type, connection, percent_decimal_places = 2) {
   symbols <- portfolio$assets$symbol
   if(price_type == "close") {
     prices <- get_symbols_last_closing_price(symbols, connection)
@@ -18,8 +18,10 @@ price_portfolio <- function(portfolio, price_type, connection) {
   
   total_value <- portfolio$cash$value_held + sum(portfolio$assets$value_held)
   
-  portfolio$assets$percent_held <- round(portfolio$assets$value_held / total_value,2)
-  portfolio$cash$percent_held <- round(portfolio$cash$value_held / total_value,2)
+  portfolio$assets$percent_held <- 100 * round(portfolio$assets$value_held / total_value,
+                                         percent_decimal_places + 2)  
+  portfolio$cash$percent_held <- 100 * round(portfolio$cash$value_held / total_value,
+                                       percent_decimal_places + 2) 
   
   
   return(portfolio)
