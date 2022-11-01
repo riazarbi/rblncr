@@ -5,6 +5,7 @@ constrain_orders <- function(solved_portfolio,
                              daily_vol_pct_limit = 0.02, 
                              min_order_size = 1000,
                              max_order_size = 10000,
+                             buy_only = FALSE,
                              terse = TRUE) {
   
   # extract assets and symbols
@@ -28,10 +29,9 @@ constrain_orders <- function(solved_portfolio,
   assets$value <- ifelse(assets$value > assets$min_value_constraint, assets$value, 0)
   # work out constrained order size
   assets$order <- floor(pmin(assets$volume_constraint, assets$value / assets$price))
+  
   # recompute the constrained value for rounding issues
   assets$value <- assets$order * assets$price
-  
-  
   
   # correct the sign for sell orders
   assets$value <- ifelse(assets$optimal_order_value < 0, -assets$value, assets$value)
@@ -40,6 +40,14 @@ constrain_orders <- function(solved_portfolio,
   # neaten up
   assets <- dplyr::relocate(assets, daily_volume, .after = price)
   assets <- dplyr::relocate(assets, value, .after = dplyr::last_col())
+
+  # drop sells if buy only constraint
+  if(buy_only) {
+    assets <- dplyr::mutate(assets, 
+                            order = ifelse(order < 0, 0, order),
+                            value = ifelse(value < 0, 0, value))
+  }
+  
   
   # drop cols if terse
   if(terse) {
