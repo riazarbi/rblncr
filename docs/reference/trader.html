@@ -25,7 +25,13 @@
       <ul class="nav navbar-nav"><li>
   <a href="../reference/index.html">Reference</a>
 </li>
-      </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="https://github.com/riazarbi/rblncr/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
@@ -35,7 +41,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Interact with a trading backend</h1>
-    
+    <small class="dont-index">Source: <a href="https://github.com/riazarbi/rblncr/blob/HEAD/R/trader.R" class="external-link"><code>R/trader.R</code></a></small>
     <div class="hidden name"><code>trader.Rd</code></div>
     </div>
 
@@ -116,131 +122,8 @@
 <span class="r-in"><span>  <span class="fu">trader</span><span class="op">(</span>trading_connection <span class="op">=</span> <span class="va">t_conn</span>,</span></span>
 <span class="r-in"><span>         pricing_connection <span class="op">=</span> <span class="va">d_conn</span>,</span></span>
 <span class="r-in"><span>         verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     timestamp symbol order limit filled   status</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        &lt;NA&gt;   AAPL    66    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        &lt;NA&gt;   GOOG    97    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3        &lt;NA&gt;   TSLA    -5    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4        &lt;NA&gt;     VT   118    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5        &lt;NA&gt;   AAPL    66    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6        &lt;NA&gt;   GOOG    97    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7        &lt;NA&gt;   TSLA    -5    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8        &lt;NA&gt;     VT   118    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9        &lt;NA&gt;   AAPL    66    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10       &lt;NA&gt;   GOOG    97    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11       &lt;NA&gt;   TSLA    -5    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12       &lt;NA&gt;     VT   118    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13       &lt;NA&gt;   AAPL    66    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14       &lt;NA&gt;   GOOG    97    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15       &lt;NA&gt;   TSLA    -5    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16       &lt;NA&gt;     VT   118    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17       &lt;NA&gt;   AAPL    66    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18       &lt;NA&gt;   GOOG    97    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19       &lt;NA&gt;   TSLA    -5    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20       &lt;NA&gt;     VT   118    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21       &lt;NA&gt;   AAPL    66    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22       &lt;NA&gt;   GOOG    97    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23       &lt;NA&gt;   TSLA    -5    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24       &lt;NA&gt;     VT   118    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25       &lt;NA&gt;   AAPL    66    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26       &lt;NA&gt;   GOOG    97    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27       &lt;NA&gt;   TSLA    -5    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28       &lt;NA&gt;     VT   118    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29       &lt;NA&gt;   AAPL    66    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30       &lt;NA&gt;   GOOG    97    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31       &lt;NA&gt;   TSLA    -5    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32       &lt;NA&gt;     VT   118    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33       &lt;NA&gt;   AAPL    66    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34       &lt;NA&gt;   GOOG    97    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35       &lt;NA&gt;   TSLA    -5    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36       &lt;NA&gt;     VT   118    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37       &lt;NA&gt;   AAPL    66    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38       &lt;NA&gt;   GOOG    97    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39       &lt;NA&gt;   TSLA    -5    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40       &lt;NA&gt;     VT   118    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41       &lt;NA&gt;   AAPL    66    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42       &lt;NA&gt;   GOOG    97    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43       &lt;NA&gt;   TSLA    -5    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44       &lt;NA&gt;     VT   118    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 45       &lt;NA&gt;   AAPL    66    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46       &lt;NA&gt;   GOOG    97    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47       &lt;NA&gt;   TSLA    -5    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 48       &lt;NA&gt;     VT   118    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49       &lt;NA&gt;   AAPL    66    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50       &lt;NA&gt;   GOOG    97    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 51       &lt;NA&gt;   TSLA    -5    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 52       &lt;NA&gt;     VT   118    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 53       &lt;NA&gt;   AAPL    66    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 54       &lt;NA&gt;   GOOG    97    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 55       &lt;NA&gt;   TSLA    -5    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 56       &lt;NA&gt;     VT   118    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57       &lt;NA&gt;   AAPL    66    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 58       &lt;NA&gt;   GOOG    97    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 59       &lt;NA&gt;   TSLA    -5    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 60       &lt;NA&gt;     VT   118    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 61       &lt;NA&gt;   AAPL    66    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 62       &lt;NA&gt;   GOOG    97    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 63       &lt;NA&gt;   TSLA    -5    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 64       &lt;NA&gt;     VT   118    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 65       &lt;NA&gt;   AAPL    66    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 66       &lt;NA&gt;   GOOG    97    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 67       &lt;NA&gt;   TSLA    -5    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 68       &lt;NA&gt;     VT   118    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 69       &lt;NA&gt;   AAPL    66    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 70       &lt;NA&gt;   GOOG    97    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 71       &lt;NA&gt;   TSLA    -5    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 72       &lt;NA&gt;     VT   118    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 73       &lt;NA&gt;   AAPL    66    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 74       &lt;NA&gt;   GOOG    97    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 75       &lt;NA&gt;   TSLA    -5    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 76       &lt;NA&gt;     VT   118    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 77       &lt;NA&gt;   AAPL    66    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 78       &lt;NA&gt;   GOOG    97    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 79       &lt;NA&gt;   TSLA    -5    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 80       &lt;NA&gt;     VT   118    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 81       &lt;NA&gt;   AAPL    66    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 82       &lt;NA&gt;   GOOG    97    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 83       &lt;NA&gt;   TSLA    -5    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 84       &lt;NA&gt;     VT   118    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 85       &lt;NA&gt;   AAPL    66    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 86       &lt;NA&gt;   GOOG    97    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 87       &lt;NA&gt;   TSLA    -5    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 88       &lt;NA&gt;     VT   118    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 89       &lt;NA&gt;   AAPL    66    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 90       &lt;NA&gt;   GOOG    97    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 91       &lt;NA&gt;   TSLA    -5    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 92       &lt;NA&gt;     VT   118    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 93       &lt;NA&gt;   AAPL    66    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 94       &lt;NA&gt;   GOOG    97    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 95       &lt;NA&gt;   TSLA    -5    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 96       &lt;NA&gt;     VT   118    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 97       &lt;NA&gt;   AAPL    66    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 98       &lt;NA&gt;   GOOG    97    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 99       &lt;NA&gt;   TSLA    -5    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 100      &lt;NA&gt;     VT   118    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 101      &lt;NA&gt;   AAPL    66    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 102      &lt;NA&gt;   GOOG    97    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 103      &lt;NA&gt;   TSLA    -5    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 104      &lt;NA&gt;     VT   118    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 105      &lt;NA&gt;   AAPL    66    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 106      &lt;NA&gt;   GOOG    97    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 107      &lt;NA&gt;   TSLA    -5    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 108      &lt;NA&gt;     VT   118    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 109      &lt;NA&gt;   AAPL    66    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 110      &lt;NA&gt;   GOOG    97    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 111      &lt;NA&gt;   TSLA    -5    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 112      &lt;NA&gt;     VT   118    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 113      &lt;NA&gt;   AAPL    66    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 114      &lt;NA&gt;   GOOG    97    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 115      &lt;NA&gt;   TSLA    -5    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 116      &lt;NA&gt;     VT   118    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 117      &lt;NA&gt;   AAPL    66    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 118      &lt;NA&gt;   GOOG    97    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 119      &lt;NA&gt;   TSLA    -5    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 120      &lt;NA&gt;     VT   118    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 121      &lt;NA&gt;   AAPL    66    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 122      &lt;NA&gt;   GOOG    97    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 123      &lt;NA&gt;   TSLA    -5    NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 124      &lt;NA&gt;     VT   118    NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] timestamp symbol    order     limit     filled    status   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;0 rows&gt; (or 0-length row.names)</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

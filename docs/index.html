@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Automatically Rebalance Equity Portfolios">
-<meta property="og:description" content="This package allows users to create model portfolios (which are desired percentage weights of assets in an equity portfolio) and to apply these models to supported backends. The wrapper function `balance_portfolio` will submit trades to the backend until the reported holdings are within the specified weight tolerances of the model portoflio.">
+<meta property="og:description" content="This package allows users to create model portfolios (which are desired percentage weights of assets in an equity portfolio) and to use these models to trade with supported backends. The wrapper function `balance_portfolio` will submit trades to the backend until the reported holdings are within the specified weight tolerances of the model portfolio.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -43,7 +43,14 @@
   <a href="reference/index.html">Reference</a>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/riazarbi/rblncr/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -62,13 +69,13 @@
 <div class="section level2">
 <h2 id="call-for-issues">Call for issues<a class="anchor" aria-label="anchor" href="#call-for-issues"></a>
 </h2>
-<p>This package largely serves my personal needs, so I have stoped short of doing the following:</p>
+<p>This package largely serves my personal needs, so I have stopped short of doing the following:</p>
 <ol style="list-style-type: decimal">
 <li>Comprehensive tests</li>
-<li>CRAN complaince and submission</li>
-<li>Implemented other backends</li>
+<li>CRAN compliance and submission (<code>RCMDCHECK</code> passes, though)</li>
+<li>Implementing other backends</li>
 </ol>
-<p>These things are possible, but someone needs to ask for them, and demonstrate that the work I would put in would be a useful investment in the community. If you would like to request something (or point out a bug), submit an issue.</p>
+<p>These things are possible, but someone needs to ask for them and convince me that they would be worthwhile. If you would like to request something (or point out a bug), submit an issue.</p>
 </div>
 <div class="section level2">
 <h2 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
@@ -79,14 +86,15 @@
 <h2 id="install">Install<a class="anchor" aria-label="anchor" href="#install"></a>
 </h2>
 <p>You can install the development version of rblncr from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
-<p><code>devtools::install_github("riazarbi/rblncr")</code></p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"riazarbi/rblncr"</span><span class="op">)</span></span></code></pre></div>
 <p>No CRAN submission currently planned.</p>
 </div>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
 <p>The bulk of the package functionality is exercised in this example:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">t_conn</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/alpaca_connect.html">alpaca_connect</a></span><span class="op">(</span><span class="st">'paper'</span>,</span>
 <span>                        <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"ALPACA_PAPER_KEY"</span><span class="op">)</span>,</span>
 <span>                        <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"ALPACA_PAPER_SECRET"</span><span class="op">)</span><span class="op">)</span></span>
@@ -104,29 +112,59 @@
 <span> <span class="fu"><a href="reference/trader.html">trader</a></span><span class="op">(</span>trading_connection <span class="op">=</span> <span class="va">t_conn</span>,</span>
 <span>        pricing_connection <span class="op">=</span> <span class="va">d_conn</span>,</span>
 <span>        verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p>Alternatively you could use the wrapper <code>balance_portfolio</code> function to achieve the above:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<p>Alternatively you could use the wrapper <code>balance_portfolio</code> function to achieve the above.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/balance_portfolio.html">balance_portfolio</a></span><span class="op">(</span><span class="va">portfolio_model</span>,</span>
 <span>                  <span class="va">t_conn</span>,</span>
 <span>                  <span class="va">d_conn</span>,</span>
 <span>                  verbose <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code></pre></div>
+<p>Note that <code>balance_portfolio</code> does not guarantee that the portfolio will be balanced by the end of execution. For instance, your orders could fail to find a buyer before cancellation. To <em>guarantee</em> that your portfolio rebalances, consider placing your code in a <code>while</code> loop.</p>
+<pre><code>$portfolio_balanced
+[1] FALSE
+
+$drift
+  symbol drift
+1   AAPL   0.0
+2   GOOG   0.0
+3   TSLA   0.0
+4     VT   7.5
+
+$trades
+            timestamp symbol order  limit filled   status
+1 2022-11-02 13:44:04   AAPL    29 149.88     29   filled
+2 2022-11-02 13:44:05     VT   118  83.83      0 canceled
+3 2022-11-02 13:44:14     VT   118  83.87      0 canceled
+4 2022-11-02 13:44:23     VT   118  83.87      0 canceled
+5 2022-11-02 13:44:33     VT   118  83.88      0 canceled</code></pre>
 </div>
 <div class="section level2">
 <h2 id="similar-packages">Similar Packages<a class="anchor" aria-label="anchor" href="#similar-packages"></a>
 </h2>
-<p>Here are some R packages that are similar or adjacent to this package.</p>
+<p>Here are some R packages that are similar or adjacent to this package. This does not constitute an endorsement.</p>
 <ul>
-<li><a href="https://github.com/yogat3ch/AlpacaforR" class="external-link">alpacaforr</a></li>
-<li><a href="https://cran.r-project.org/package=backtest" class="external-link">backtest</a></li>
-<li><a href="https://cran.r-project.org/package=portfolio" class="external-link">portfolio</a></li>
-<li><a href="https://cran.r-project.org/package=strand" class="external-link">strand</a></li>
+<li>
+<a href="https://github.com/yogat3ch/AlpacaforR" class="external-link">alpacaforr</a>: Interact with Alpaca from R</li>
+<li>
+<a href="https://cran.r-project.org/package=backtest" class="external-link">backtest</a>: The backtest package provides facilities for exploring portfolio-based conjectures about financial instruments (stocks, bonds, swaps, options, et cetera).</li>
+<li>
+<a href="https://cran.r-project.org/package=portfolio" class="external-link">portfolio</a>: Classes for analysing and implementing equity portfolios, including routines for generating tradelists and calculating exposures to user-specified risk factors.</li>
+<li>
+<a href="https://cran.r-project.org/package=strand" class="external-link">strand</a>: Provides a framework for performing discrete (share-level) simulations of investment strategies.</li>
 </ul>
 </div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <div class="license">
+    <div class="links">
+<h2 data-toc-skip>Links</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/riazarbi/rblncr/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/riazarbi/rblncr/issues" class="external-link">Report a bug</a></li>
+</ul>
+</div>
+
+<div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>

@@ -51,7 +51,6 @@ a list containing a \code{portfolio_balanced} value (TRUE/FALSE), a data frame i
 Wrapper function to automatically rebalance a portfolio. Requires a \code{portfolio_model} input (see \code{create_portfolio_model()} or \code{read_portfolio_model()}), a trading connection and a data connection as a minimum (see, for example, \code{alpaca_connect()} although others may be supported in the future).
 }
 \examples{
-\dontrun{
 t_conn <- alpaca_connect('paper',
                         Sys.getenv("ALPACA_PAPER_KEY"),
                         Sys.getenv("ALPACA_PAPER_SECRET"))
@@ -64,5 +63,4 @@ balance_portfolio(portfolio_model,
                              t_conn,
                              d_conn,
                              verbose = F)
-}
 }

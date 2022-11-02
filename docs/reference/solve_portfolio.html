@@ -25,7 +25,13 @@
       <ul class="nav navbar-nav"><li>
   <a href="../reference/index.html">Reference</a>
 </li>
-      </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="https://github.com/riazarbi/rblncr/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
@@ -35,7 +41,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Compute which changes are required to make a current portfolio identical to a portfolio model</h1>
-    
+    <small class="dont-index">Source: <a href="https://github.com/riazarbi/rblncr/blob/HEAD/R/solve_portfolio.R" class="external-link"><code>R/solve_portfolio.R</code></a></small>
     <div class="hidden name"><code>solve_portfolio.Rd</code></div>
     </div>
 
@@ -83,14 +89,14 @@
 <span class="r-in"><span>  <span class="fu">solve_portfolio</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $cash</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   currency out_of_band optimal_value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      USD        TRUE      50199.93</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      USD       FALSE      50257.81</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $assets</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   symbol  price out_of_band optimal_order optimal_order_value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   AAPL 150.65       FALSE            95            14311.75</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   GOOG  90.50       FALSE            97             8778.50</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   TSLA 227.82       FALSE            -5            -1139.10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4     VT  84.08        TRUE           384            32286.72</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   AAPL 150.65       FALSE             0                   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   GOOG  90.50       FALSE             0                   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   TSLA 227.82       FALSE             0                   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4     VT  84.08       FALSE             0                   0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $tolerance</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $tolerance$percent</span>
