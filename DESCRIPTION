@@ -21,4 +21,7 @@ Imports:
     yaml,
     utils,
     rlang (>= 1.0.2)
-
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

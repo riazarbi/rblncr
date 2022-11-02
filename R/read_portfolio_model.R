@@ -6,6 +6,7 @@
 #'
 #' @return a portfolio model object
 #' @export
+#' @importFrom yaml read_yaml
 #' @examples
 #' read_portfolio_model(system.file(package='rblncr','extdata/sample_portfolio.yaml'))
 #'
