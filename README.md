@@ -20,7 +20,9 @@ See <https://riazarbi.github.io/rblncr>
 
 You can install the development version of rblncr from [GitHub](https://github.com/) with:
 
-`devtools::install_github("riazarbi/rblncr")`
+```r
+devtools::install_github("riazarbi/rblncr")
+```
 
 No CRAN submission currently planned.
 
@@ -49,7 +51,7 @@ get_portfolio_current(t_conn) |>
         verbose = TRUE)
 ```
 
-Alternatively you could use the wrapper `balance_portfolio` function to achieve the above:
+Alternatively you could use the wrapper `balance_portfolio` function to achieve the above. 
 
 ```r
 balance_portfolio(portfolio_model,
@@ -58,11 +60,32 @@ balance_portfolio(portfolio_model,
                   verbose = F)
 ```
 
+Note that `balance_portfolio` does not guarantee that the portfolio will be balanced by the end of execution. For instance, your orders could fail to find a buyer before cancellation. To _guarantee_ that your portfolio rebalances, consider placing your code in a `while` loop.
+
+```
+$portfolio_balanced
+[1] FALSE
+
+$drift
+  symbol drift
+1   AAPL   0.0
+2   GOOG   0.0
+3   TSLA   0.0
+4     VT   7.5
+
+$trades
+            timestamp symbol order  limit filled   status
+1 2022-11-02 13:44:04   AAPL    29 149.88     29   filled
+2 2022-11-02 13:44:05     VT   118  83.83      0 canceled
+3 2022-11-02 13:44:14     VT   118  83.87      0 canceled
+4 2022-11-02 13:44:23     VT   118  83.87      0 canceled
+5 2022-11-02 13:44:33     VT   118  83.88      0 canceled
+```
 ## Similar Packages
 
-Here are some R packages that are similar or adjacent to this package.
+Here are some R packages that are similar or adjacent to this package. This does not constitute an endorsement.
 
-- [alpacaforr](https://github.com/yogat3ch/AlpacaforR)
-- [backtest](https://cran.r-project.org/package=backtest)
-- [portfolio](https://cran.r-project.org/package=portfolio)
-- [strand](https://cran.r-project.org/package=strand)
+- [alpacaforr](https://github.com/yogat3ch/AlpacaforR): Interact with Alpaca from R
+- [backtest](https://cran.r-project.org/package=backtest): The backtest package provides facilities for exploring portfolio-based conjectures about financial instruments (stocks, bonds, swaps, options, et cetera). 
+- [portfolio](https://cran.r-project.org/package=portfolio): Classes for analysing and implementing equity portfolios, including routines for generating tradelists and calculating exposures to user-specified risk factors.
+- [strand](https://cran.r-project.org/package=strand): Provides a framework for performing discrete (share-level) simulations of investment strategies.
