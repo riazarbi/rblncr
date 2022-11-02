@@ -6,7 +6,7 @@ Authors@R:
            family = "Arbi",
            email = "riazarbi@gmail.com", 
            role = c("aut", "cre"))
-Description: This package allows users to create model portfolios (which are desired percentage weights of assets in an equity portfolio) and to apply these models to supported backends. The wrapper function `balance_portfolio` will submit trades to the backend until the reported holdings are within the specified weight tolerances of the model portoflio.
+Description: This package allows users to create model portfolios (which are desired percentage weights of assets in an equity portfolio) and to use these models to trade with supported backends. The wrapper function `balance_portfolio` will submit trades to the backend until the reported holdings are within the specified weight tolerances of the model portfolio.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
