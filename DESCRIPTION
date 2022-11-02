@@ -1,0 +1,22 @@
+Package: rblncr
+Title: Automatically Rebalance Equity Portfolios
+Version: 0.9.0
+Authors@R: 
+    person(given = "Riaz",
+           family = "Arbi",
+           email = "riazarbi@gmail.com", 
+           role = c("aut", "cre"))
+Description: This package allows users to create model portfolios (which are desired percentage weights of assets in an equity portfolio) and to apply these models to supported backends. The wrapper function `balance_portfolio` will submit trades to the backend until the reported holdings are within the specified weight tolerances of the model portoflio.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.1
+Imports:
+    dplyr,
+    httr,
+    lubridate,
+    purrr,
+    yaml,
+    utils,
+    rlang (>= 1.0.2)
+

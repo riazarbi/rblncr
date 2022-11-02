@@ -1,0 +1,6 @@
+^rblncr\.Rproj$
+^\.Rproj\.user$
+^LICENSE\.md$
+scratch/*
+set_env.R
+source_secrets.R
