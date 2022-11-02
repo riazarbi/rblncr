@@ -1,0 +1,159 @@
+---
+title: "Introduction"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+This vignette provides a high level introduction to the `rblncr` package. You can use the functions in your package to:
+
+- Create a model portfolio
+- Query your existing brokerage account to obtain your current holdings
+- Automatically rebalance your brokerage account so that the holdings mirror your model portfolio
+
+## Create a portfolio model
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+
+```{r setup}
+library(rblncr)
+```
+
+A portfolio model is an R `list()` that is structured in a particular way. It provides information to `rblncr` functions about what asset allocations you want. You can write a portfolio model list to disk with the function `save_portfolio_model`. It is written in `yaml` format. Here is an example of a model portfolio that was written to disk.
+
+```
+name: sample_portfolio
+description: create from function
+cash:
+  percent: 5
+assets:
+- symbol: AAPL
+  percent: 30
+- symbol: GOOG
+  percent: 30
+- symbol: VT
+  percent: 30
+- symbol: TSLA
+  percent: 5
+tolerance:
+  percent: 5
+cooldown:
+  days: 365
+created_at: 2022-10-24T11:22:01
+updated_at: 2022-10-24T11:22:01
+```
+
+Here is how you would create a portfolio model from scratch, write it to disk, and then read it.
+
+```{r create_model}
+name <- "sample_portfolio"
+description <- "create from function"
+cash <- list(percent = 10)
+assets <- data.frame(symbol = c("AAPL","GOOG"), percent = c(80.5,9.5))
+tolerance <- list(percent = 5)
+cooldown <- list(days = 365)
+
+model <- create_portfolio_model(name = name,
+                      description = description,
+                      cash = cash,
+                      assets = assets,
+                      tolerance = tolerance,
+                      cooldown = cooldown)
+str(model)
+
+save_portfolio_model(model, "/tmp/model.yaml")
+
+```
+
+## Get brokerage account holdings
+
+In order to rebalance an existing portfolio, we need to talk to our broker to find out what our current holdings are. In order to interact with a broker we need to define a connection. A connection is just a special function that tells downstream functions how to interact with a broker.
+
+We use the function `get_portfolio_current` to get the current portfolio holdings.
+
+```{r alpaca_connect}
+# alpaca trading api
+t_conn <- alpaca_connect('paper',
+                          Sys.getenv("ALPACA_PAPER_KEY"),
+                          Sys.getenv("ALPACA_PAPER_SECRET"))
+
+# alpaca data api
+d_conn <- alpaca_connect('data',
+                          Sys.getenv("ALPACA_LIVE_KEY"),
+                          Sys.getenv("ALPACA_LIVE_SECRET"))
+
+holdings <- get_portfolio_current(t_conn) 
+holdings
+```
+
+## Compute Balancing Orders
+
+Once we have our holdings, we can load our target holdings from the model.
+
+```{r load_targets}
+targets <- holdings |>
+ load_portfolio_targets(model) 
+targets
+```
+
+Now we know what we have, and what we need. But we need to translate holdings to percentages to be able to compare them. We use the `price_portfolio()` function for this. It gets prices from a data connection and computes current holding values and percentages.
+
+```{r price_portfolio}
+priced <- targets |>
+ price_portfolio(connection = d_conn, price_type = 'close') 
+```
+
+We can now use `solve_portfolio()` to work out what orders we need to submit to balance our portfolio.
+
+```{r solve_portfolio}
+solution <- priced|>
+ solve_portfolio(terse = TRUE) 
+solution
+```
+
+## Trade
+
+At this point, we have enough information to submit orders to a broker. However, it is prudent to make sure that our orders are properly sized. Orders that are too big may move the market, and orders that are too small may incure excessive fees and create unnecessary churn.
+
+```{r constrain_orders}
+orders <- solution |>
+ constrain_orders(d_conn, 
+                  daily_vol_pct_limit = 0.01, 
+                  min_order_size = 1000, 
+                  max_order_size = 10000 )
+orders
+```
+
+Now that we have safely resized our orders, we can submit them to the trader.
+
+```{r trade}
+trader(orders, 
+       trader_life = 120,
+       resubmit_interval = 40,
+       trading_connection = t_conn, 
+       pricing_connection = d_conn)
+```
+
+## All in one 
+
+The above code flow is useful if you want fine grained control of the rebalancing process, or if you want to log data from the pipeline to disk. Generally speaking, it is much more convenient to just use the `balance_portfolio` wrapper function.
+
+```{r balance_portfolio}
+balance_portfolio(model,
+                  t_conn,
+                  d_conn,
+                  verbose = F)
+```
+
+
+Note that the `balance_portfolio()` won't necessarily rebalance your portfolio! Because we care about constraining our order size and price to get the best deals we can, the function will exit once the trader timeout is reached. To guarantee that the portfolio is rebalanced, we need to put `balance_portfolio()` into a `while` loop, and/or relax pricing and order size constraints.
+
