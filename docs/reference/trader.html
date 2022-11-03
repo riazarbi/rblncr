@@ -32,6 +32,9 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
+      <a href="../articles/balance_or_die.html">Balance or Die</a>
+    </li>
+    <li>
       <a href="../articles/introduction.html">Introduction</a>
     </li>
   </ul></li>
@@ -133,25 +136,54 @@
 <span class="r-in"><span>         pricing_connection <span class="op">=</span> <span class="va">d_conn</span>,</span></span>
 <span class="r-in"><span>         verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              timestamp symbol order  limit filled   status</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2022-11-02 15:19:16   AAPL   -66 148.75    -66   filled</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  2022-11-02 15:19:16   GOOG   110  89.06      0 canceled</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  2022-11-02 15:19:16     VT   118  83.72    118   filled</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  2022-11-02 15:19:26   GOOG   110  89.11      0 canceled</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                 &lt;NA&gt;   GOOG   110     NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  2022-11-02 15:19:44   GOOG   110  89.09      0 canceled</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  2022-11-02 15:19:54   GOOG   110  89.09      0 canceled</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  2022-11-02 15:20:03   GOOG   110  89.11      0 canceled</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  2022-11-02 15:20:13   GOOG   110  89.11      0 canceled</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 2022-11-02 15:20:23   GOOG   110  89.12      0 canceled</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 2022-11-02 15:20:32   GOOG   110  89.13      0 canceled</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 2022-11-02 15:20:41   GOOG   110  89.12      0 canceled</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13                &lt;NA&gt;   GOOG   110     NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 2022-11-02 15:20:59   GOOG   110  89.22      0 canceled</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15                &lt;NA&gt;   GOOG   110     NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 2022-11-02 15:21:18   GOOG   110  89.13      0 canceled</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 2022-11-02 15:21:27   GOOG   110  89.15      0 canceled</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18 2022-11-02 15:21:38   GOOG   110  89.15      0 canceled</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19 2022-11-02 15:21:47   GOOG   110  89.26    110   filled</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2022-11-03 15:39:56   AAPL   -68 140.05    -68   filled</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                 &lt;NA&gt;   GOOG   114     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  2022-11-03 15:39:56     VT   121  81.88      0 canceled</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                 &lt;NA&gt;   TSLA    46     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                 &lt;NA&gt;   GOOG   114     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  2022-11-03 15:40:06     VT   121  81.88    121   filled</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                 &lt;NA&gt;   TSLA    46     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8                 &lt;NA&gt;   GOOG   114     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                 &lt;NA&gt;   TSLA    46     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10                &lt;NA&gt;   GOOG   114     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11                &lt;NA&gt;   TSLA    46     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12                &lt;NA&gt;   GOOG   114     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13                &lt;NA&gt;   TSLA    46     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                &lt;NA&gt;   GOOG   114     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15                &lt;NA&gt;   TSLA    46     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 2022-11-03 15:40:53   GOOG   114  84.90      0 canceled</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17                &lt;NA&gt;   TSLA    46     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 2022-11-03 15:41:02   GOOG   114  84.96      0 canceled</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19                &lt;NA&gt;   TSLA    46     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20                &lt;NA&gt;   GOOG   114     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21                &lt;NA&gt;   TSLA    46     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22                &lt;NA&gt;   GOOG   114     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23                &lt;NA&gt;   TSLA    46     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24                &lt;NA&gt;   GOOG   114     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25                &lt;NA&gt;   TSLA    46     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26 2022-11-03 15:41:39   GOOG   114  85.05    114   filled</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27                &lt;NA&gt;   TSLA    46     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28                &lt;NA&gt;   TSLA    46     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29                &lt;NA&gt;   TSLA    46     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30 2022-11-03 15:42:07   TSLA    46 216.42      0 canceled</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31                &lt;NA&gt;   TSLA    46     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32                &lt;NA&gt;   TSLA    46     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33                &lt;NA&gt;   TSLA    46     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34                &lt;NA&gt;   TSLA    46     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35                &lt;NA&gt;   TSLA    46     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36                &lt;NA&gt;   TSLA    46     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37                &lt;NA&gt;   TSLA    46     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38                &lt;NA&gt;   TSLA    46     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39                &lt;NA&gt;   TSLA    46     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40                &lt;NA&gt;   TSLA    46     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41                &lt;NA&gt;   TSLA    46     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42                &lt;NA&gt;   TSLA    46     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43                &lt;NA&gt;   TSLA    46     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44                &lt;NA&gt;   TSLA    46     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45                &lt;NA&gt;   TSLA    46     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46                &lt;NA&gt;   TSLA    46     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47                &lt;NA&gt;   TSLA    46     NA      0 no_limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48                &lt;NA&gt;   TSLA    46     NA      0 no_limit</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

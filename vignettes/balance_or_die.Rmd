@@ -1,0 +1,115 @@
+---
+title: "Balance or Die"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{balance_or_die}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+If you want to use `rblncr` to rebalance a portfolio periodically, you might want to just keep calling `rebalance_portfolio()` until the portfolio is balanced. You can achieve this with a `while` loop.
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(rblncr)
+library(ggplot2)
+```
+
+First we set our connection details.
+
+```{r connect}
+trading_mode = "paper"
+alpaca_paper_key <- Sys.getenv("ALPACA_PAPER_KEY")
+alpaca_paper_secret <- Sys.getenv("ALPACA_PAPER_SECRET")
+
+alpaca_live_key <- Sys.getenv("ALPACA_LIVE_KEY")
+alpaca_live_secret <- Sys.getenv("ALPACA_LIVE_SECRET")
+
+t_conn <- alpaca_connect(trading_mode,
+                         alpaca_paper_key,
+                         alpaca_paper_secret)
+d_conn <- alpaca_connect("data",
+                         alpaca_live_key,
+                         alpaca_live_secret)
+
+```
+
+Then we create or load our model. Here we want a portoflio that is 70.% AAPL, and 19.5% GOOG. The remaining 10% will sit in cash.
+
+```{r create_model}
+name <- "sample_portfolio"
+description <- "create from function"
+cash <- list(percent = 10)
+assets <- data.frame(symbol = c("AAPL","GOOG"), percent = c(70.5,19.5))
+tolerance <- list(percent = 5)
+cooldown <- list(days = 365)
+
+model <- create_portfolio_model(name = name,
+                      description = description,
+                      cash = cash,
+                      assets = assets,
+                      tolerance = tolerance,
+                      cooldown = cooldown)
+```
+
+```{r balance_or_die}
+balanced <- FALSE
+i <- 1
+attempts <- list()
+while(!balanced) {
+
+attempt <- balance_portfolio(model,
+                             trading_connection = t_conn,
+                             pricing_connection = d_conn,
+                             min_order_size = 1000,
+                             max_order_size = 10000,
+                             daily_vol_pct_limit = 0.02,
+                             pricing_spread_tolerance = 0.01,
+                             pricing_overrides = NULL,
+                             trader_life = 60,
+                             buy_only = FALSE,
+                             resubmit_interval = 10,
+                             verbose = FALSE)
+balanced <- attempt$portfolio_balanced
+attempts[[i]] <- attempt
+i <- i + 1
+}
+if(length(attempts) > 0) {
+  drift_changes <- purrr::map_df(attempts, ~ .x$drift, .id = "run")
+  drift_changes <- dplyr::mutate(drift_changes, run = as.integer(run))
+}
+
+```
+
+These are the trades attempted by the `trader()`. The orders with `NA` timestamps were not even submitted to the broker because they didn't have sufficient information. Generally this happens when the order quantity is zero, or the data connection did not return sufficient information to create a limit order.
+
+```{r show_trades}
+trades <- purrr::map_df(attempts, ~ .x$trades, .id = "run")
+trades
+```
+
+We can see how the portfolio drift converges to zero over time.
+
+```{r plot_drift}
+if(length(attempts) > 0) {
+  ggplot(drift_changes, aes(x = run, y = drift)) +
+  geom_line(aes(color = symbol))
+}
+```
+
+Here are the portfolio weights post-rebalance. You can see that we have managed to achieve our target balances (within tolerance).
+
+```{r}
+
+get_portfolio_current(t_conn) |> 
+  price_portfolio(d_conn) |> 
+  magrittr::extract2("assets") |> 
+  dplyr::select(symbol, percent_held)
+
+```

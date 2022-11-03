@@ -2,6 +2,7 @@ pandoc: 2.17.1.1
 pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
+  balance_or_die: balance_or_die.html
   introduction: introduction.html
-last_built: 2022-11-02T15:18Z
+last_built: 2022-11-03T15:38Z
 

@@ -7,7 +7,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-This vignette provides a high level introduction to the `rblncr` package. You can use the functions in your package to:
+This vignette provides a high level introduction to the `rblncr` package. You can use the functions in this package to:
 
 - Create a model portfolio
 - Query your existing brokerage account to obtain your current holdings
@@ -28,7 +28,7 @@ knitr::opts_chunk$set(
 library(rblncr)
 ```
 
-A portfolio model is an R `list()` that is structured in a particular way. It provides information to `rblncr` functions about what asset allocations you want. You can write a portfolio model list to disk with the function `save_portfolio_model`. It is written in `yaml` format. Here is an example of a model portfolio that was written to disk.
+A portfolio model is an R `list()` that is structured in a particular way. It provides information to `rblncr` functions about what asset allocations you want. You can write a portfolio model list to disk with the function `save_portfolio_model()`. It is written in `yaml` format. Here is an example of a model portfolio that was written to disk.
 
 ```
 name: sample_portfolio
@@ -138,14 +138,14 @@ Now that we have safely resized our orders, we can submit them to the trader.
 ```{r trade}
 trader(orders, 
        trader_life = 120,
-       resubmit_interval = 40,
+       resubmit_interval = 5,
        trading_connection = t_conn, 
        pricing_connection = d_conn)
 ```
 
 ## All in one 
 
-The above code flow is useful if you want fine grained control of the rebalancing process, or if you want to log data from the pipeline to disk. Generally speaking, it is much more convenient to just use the `balance_portfolio` wrapper function.
+The above code flow is useful if you want fine grained control of the rebalancing process, or if you want to log data from the pipeline to disk. Generally speaking, it is much more convenient to just use the `balance_portfolio()` wrapper function.
 
 ```{r balance_portfolio}
 balance_portfolio(model,
@@ -155,5 +155,5 @@ balance_portfolio(model,
 ```
 
 
-Note that the `balance_portfolio()` won't necessarily rebalance your portfolio! Because we care about constraining our order size and price to get the best deals we can, the function will exit once the trader timeout is reached. To guarantee that the portfolio is rebalanced, we need to put `balance_portfolio()` into a `while` loop, and/or relax pricing and order size constraints.
+Note that the `balance_portfolio()` won't necessarily rebalance your portfolio! Because we care about constraining our order size and price to get the best deals we can, the function will exit once the trader timeout is reached. To guarantee that the portfolio is rebalanced, we need to put `balance_portfolio()` into a `while` loop, and/or relax pricing and order size constraints. See the 'Balance or Die' vignette for an example of how to do this.
 
