@@ -3,6 +3,7 @@
 export(alpaca_connect)
 export(balance_portfolio)
 export(constrain_orders)
+export(cooldown_elapsed)
 export(create_portfolio_model)
 export(get_cash)
 export(get_orders)
