@@ -1,4 +1,15 @@
+
+#' Has the cooldown period for a portfolio elapsed?
+#'
+#' @param last_rebalance a POSIXct timestamp of the last successful rebalance activity
+#'
+#' @param cooldown_days number of cooldown days post a successful rebalance specified in the portfolio model
+#'
 #' @importFrom lubridate now days
+#' @export
+#' @return TRUE/FALSE
+#' @examples
+#' cooldown_elapsed(lubridate::now() - lubridate::days(30), 35)
 
 cooldown_elapsed <- function(last_rebalance, cooldown_days) {
 
