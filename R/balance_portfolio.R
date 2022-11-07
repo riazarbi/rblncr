@@ -20,6 +20,7 @@
 #' @importFrom rlang .data
 #' @importFrom utils capture.output
 #' @examples
+#' \dontrun{
 #'t_conn <- alpaca_connect('paper',
 #'                         Sys.getenv("ALPACA_PAPER_KEY"),
 #'                         Sys.getenv("ALPACA_PAPER_SECRET"))
@@ -32,6 +33,7 @@
 #'                              t_conn,
 #'                              d_conn,
 #'                              verbose = F)
+#'                              }
 balance_portfolio <- function(portfolio_model,
                               trading_connection,
                               pricing_connection,
