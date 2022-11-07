@@ -21,6 +21,8 @@ In a real world scenario, you don't want to be manually executing rebalancing sc
 - Linux `cron`
 - [Github Actions](https://docs.github.com/en/actions)
 
+> You can see an example of a GitHub Actions-scheduled rblncr workflow at [riazarbi/rblncr-demo](https://github.com/riazarbi/rblncr-demo).
+
 You'll want to use `rblncr` in a script that triggers trades if:
 
 1. the portfolio model `cooldown` period has elapsed AND

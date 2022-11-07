@@ -55,6 +55,9 @@
     <li>
       <a href="../articles/introduction.html">Introduction</a>
     </li>
+    <li>
+      <a href="../articles/scheduled_rebalance.html">Scheduled rebalancing</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -161,45 +164,59 @@ return sufficient information to create a limit order.</p>
 <code class="sourceCode R"><span><span class="va">trades</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map_df</a></span><span class="op">(</span><span class="va">attempts</span>, <span class="op">~</span> <span class="va">.x</span><span class="op">$</span><span class="va">trades</span>, .id <span class="op">=</span> <span class="st">"run"</span><span class="op">)</span></span>
 <span><span class="va">trades</span></span>
 <span><span class="co">#&gt;    run           timestamp symbol order  limit filled   status</span></span>
-<span><span class="co">#&gt; 1    1 2022-11-03 15:45:04   AAPL    68 140.00     68   filled</span></span>
-<span><span class="co">#&gt; 2    1 2022-11-03 15:45:04     VT  -121  81.84   -121   filled</span></span>
-<span><span class="co">#&gt; 3    2 2022-11-03 15:45:23   AAPL    68 139.55      0 canceled</span></span>
-<span><span class="co">#&gt; 4    2 2022-11-03 15:45:24     VT  -121  81.86   -121   filled</span></span>
-<span><span class="co">#&gt; 5    2 2022-11-03 15:45:38   AAPL    68 140.03     68   filled</span></span>
-<span><span class="co">#&gt; 6    3 2022-11-03 15:45:56   AAPL    68 140.16     68   filled</span></span>
-<span><span class="co">#&gt; 7    4 2022-11-03 15:46:13   AAPL    68 140.09     68   filled</span></span>
-<span><span class="co">#&gt; 8    5 2022-11-03 15:46:31   AAPL    68 139.61      0 canceled</span></span>
-<span><span class="co">#&gt; 9    5 2022-11-03 15:46:45   AAPL    68 140.16      0 canceled</span></span>
-<span><span class="co">#&gt; 10   5 2022-11-03 15:47:00   AAPL    68 140.09     68   filled</span></span>
-<span><span class="co">#&gt; 11   6 2022-11-03 15:47:17   AAPL    68 139.55      0 canceled</span></span>
-<span><span class="co">#&gt; 12   6 2022-11-03 15:47:32   AAPL    68 140.02     68   filled</span></span>
-<span><span class="co">#&gt; 13   7                &lt;NA&gt;   AAPL    68     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 14   7 2022-11-03 15:48:04   AAPL    68 139.91     68   filled</span></span>
-<span><span class="co">#&gt; 15   8                &lt;NA&gt;   AAPL    68     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 16   8 2022-11-03 15:48:36   AAPL    68 139.92     68   filled</span></span>
-<span><span class="co">#&gt; 17   9                &lt;NA&gt;   AAPL    68     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 18   9 2022-11-03 15:49:08   AAPL    68 139.46      0 canceled</span></span>
-<span><span class="co">#&gt; 19   9                &lt;NA&gt;   AAPL    68     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 20   9 2022-11-03 15:49:36   AAPL    68 139.43      0 canceled</span></span>
-<span><span class="co">#&gt; 21   9                &lt;NA&gt;   AAPL    68     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 22  10                &lt;NA&gt;   AAPL    68     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 23  10                &lt;NA&gt;   AAPL    68     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 24  10 2022-11-03 15:50:37   AAPL    68 139.81     68   filled</span></span>
-<span><span class="co">#&gt; 25  11 2022-11-03 15:50:55   AAPL    68 139.71     68   filled</span></span>
-<span><span class="co">#&gt; 26  12 2022-11-03 15:51:14   AAPL    68 139.31      0 canceled</span></span>
-<span><span class="co">#&gt; 27  12                &lt;NA&gt;   AAPL    68     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 28  12 2022-11-03 15:51:42   AAPL    68 139.55     68   filled</span></span>
-<span><span class="co">#&gt; 29  13                &lt;NA&gt;   AAPL    68     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 30  13 2022-11-03 15:52:14   AAPL    68 139.50     68   filled</span></span>
-<span><span class="co">#&gt; 31  14 2022-11-03 15:52:34   AAPL    68 139.41      0 canceled</span></span>
-<span><span class="co">#&gt; 32  14 2022-11-03 15:52:48   AAPL    68 139.42     68   filled</span></span>
-<span><span class="co">#&gt; 33  15                &lt;NA&gt;   AAPL    68     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 34  15 2022-11-03 15:53:20   AAPL    68 139.25      0 canceled</span></span>
-<span><span class="co">#&gt; 35  15                &lt;NA&gt;   AAPL    68     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 36  15 2022-11-03 15:53:49   AAPL    68 139.43     68   filled</span></span>
-<span><span class="co">#&gt; 37  16                &lt;NA&gt;   AAPL    51     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 38  16                &lt;NA&gt;   AAPL    51     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 39  16 2022-11-03 15:54:35   AAPL    51 139.45     51   filled</span></span></code></pre></div>
+<span><span class="co">#&gt; 1    1                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 2    1                &lt;NA&gt;   GOOG  -115     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 3    1                &lt;NA&gt;   TSLA   -48     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 4    1 2022-11-07 14:44:19     VT  -119  83.78      0 canceled</span></span>
+<span><span class="co">#&gt; 5    1                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 6    1 2022-11-07 14:44:34   GOOG  -115  87.30   -115   filled</span></span>
+<span><span class="co">#&gt; 7    1                &lt;NA&gt;   TSLA   -48     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 8    1                &lt;NA&gt;     VT  -119     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 9    1                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 10   1 2022-11-07 14:44:49   TSLA   -48 202.92      0 canceled</span></span>
+<span><span class="co">#&gt; 11   1 2022-11-07 14:44:49     VT  -119  83.75   -119   filled</span></span>
+<span><span class="co">#&gt; 12   1                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 13   1                &lt;NA&gt;   TSLA   -48     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 14   2                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 15   2                &lt;NA&gt;   GOOG   -66     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 16   2                &lt;NA&gt;   TSLA   -48     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 17   2 2022-11-07 14:45:25     VT  -119  83.72   -119   filled</span></span>
+<span><span class="co">#&gt; 18   2                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 19   2 2022-11-07 14:45:40   GOOG   -66  87.46    -66   filled</span></span>
+<span><span class="co">#&gt; 20   2                &lt;NA&gt;   TSLA   -48     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 21   2                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 22   2                &lt;NA&gt;   TSLA   -48     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 23   2                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 24   2                &lt;NA&gt;   TSLA   -48     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 25   2                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 26   2                &lt;NA&gt;   TSLA   -48     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 27   3                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 28   3                &lt;NA&gt;   TSLA   -48     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 29   3                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 30   3                &lt;NA&gt;   TSLA   -48     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 31   3                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 32   3                &lt;NA&gt;   TSLA   -48     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 33   3                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 34   3                &lt;NA&gt;   TSLA   -48     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 35   3                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 36   3 2022-11-07 14:47:39   TSLA   -48 201.36    -48   filled</span></span>
+<span><span class="co">#&gt; 37   4 2022-11-07 14:47:58   AAPL    72 136.12     72   filled</span></span>
+<span><span class="co">#&gt; 38   4                &lt;NA&gt;   TSLA   -48     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 39   4                &lt;NA&gt;   TSLA   -48     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 40   4                &lt;NA&gt;   TSLA   -48     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 41   4 2022-11-07 14:48:40   TSLA   -48 201.02    -48   filled</span></span>
+<span><span class="co">#&gt; 42   5                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 43   5                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 44   5                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 45   5                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 46   5                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 47   6                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 48   6                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 49   6                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 50   6                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 51   6                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 52   7 2022-11-07 14:51:27   AAPL    72 136.11     72   filled</span></span>
+<span><span class="co">#&gt; 53   8 2022-11-07 14:51:46   AAPL    66 135.97     66   filled</span></span></code></pre></div>
 <p>We can see how the portfolio drift converges to zero over time.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">attempts</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
@@ -216,7 +233,7 @@ have managed to achieve our target balances (within tolerance).</p>
 <span>  <span class="fu">magrittr</span><span class="fu">::</span><span class="fu"><a href="https://magrittr.tidyverse.org/reference/aliases.html" class="external-link">extract2</a></span><span class="op">(</span><span class="st">"assets"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">symbol</span>, <span class="va">percent_held</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   symbol percent_held</span></span>
-<span><span class="co">#&gt; 1   AAPL        70.47</span></span>
+<span><span class="co">#&gt; 1   AAPL        70.48</span></span>
 <span><span class="co">#&gt; 2   GOOG        19.49</span></span></code></pre></div>
   </div>
 

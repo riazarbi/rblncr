@@ -37,6 +37,9 @@
     <li>
       <a href="../articles/introduction.html">Introduction</a>
     </li>
+    <li>
+      <a href="../articles/scheduled_rebalance.html">Scheduled rebalancing</a>
+    </li>
   </ul></li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/riazarbi/rblncr/" class="external-link">
@@ -138,7 +141,8 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">t_conn</span> <span class="op">&lt;-</span> <span class="fu"><a href="alpaca_connect.html">alpaca_connect</a></span><span class="op">(</span><span class="st">'paper'</span>,</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="va">t_conn</span> <span class="op">&lt;-</span> <span class="fu"><a href="alpaca_connect.html">alpaca_connect</a></span><span class="op">(</span><span class="st">'paper'</span>,</span></span>
 <span class="r-in"><span>                        <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"ALPACA_PAPER_KEY"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                        <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"ALPACA_PAPER_SECRET"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">d_conn</span> <span class="op">&lt;-</span> <span class="fu"><a href="alpaca_connect.html">alpaca_connect</a></span><span class="op">(</span><span class="st">'data'</span>,</span></span>
@@ -150,27 +154,7 @@
 <span class="r-in"><span>                             <span class="va">t_conn</span>,</span></span>
 <span class="r-in"><span>                             <span class="va">d_conn</span>,</span></span>
 <span class="r-in"><span>                             verbose <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $portfolio_balanced</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $drift</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   symbol  drift</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   AAPL  88.85</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   GOOG  38.15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3     VT  96.52</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   TSLA 100.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $trades</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             timestamp symbol order  limit filled   status</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2022-11-03 15:39:03   AAPL   -68 140.10    -68   filled</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2022-11-03 15:39:03   GOOG   114  84.92    114   filled</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2022-11-03 15:39:04     VT   121  81.84      0 canceled</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                &lt;NA&gt;   TSLA    46     NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 2022-11-03 15:39:13     VT   121  81.83    121   filled</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6                &lt;NA&gt;   TSLA    46     NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7                &lt;NA&gt;   TSLA    46     NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8                &lt;NA&gt;   TSLA    46     NA      0 no_limit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span>                             <span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>

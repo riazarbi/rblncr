@@ -19,6 +19,9 @@
     <loc>/articles/introduction.html</loc>
   </url>
   <url>
+    <loc>/articles/scheduled_rebalance.html</loc>
+  </url>
+  <url>
     <loc>/authors.html</loc>
   </url>
   <url>
@@ -32,6 +35,9 @@
   </url>
   <url>
     <loc>/reference/constrain_orders.html</loc>
+  </url>
+  <url>
+    <loc>/reference/cooldown_elapsed.html</loc>
   </url>
   <url>
     <loc>/reference/create_portfolio_model.html</loc>

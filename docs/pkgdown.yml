@@ -4,5 +4,6 @@ pkgdown_sha: ~
 articles:
   balance_or_die: balance_or_die.html
   introduction: introduction.html
-last_built: 2022-11-03T15:38Z
+  scheduled_rebalance: scheduled_rebalance.html
+last_built: 2022-11-07T14:41Z
 
