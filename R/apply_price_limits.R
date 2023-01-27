@@ -32,7 +32,9 @@ apply_price_limits <- function(order_quantities,
                             !(.data$bid_price == 0),
                             !(.data$ask_size ==0),
                             !(.data$bid_size ==0))
+    if(nrow(quotes > 0)) {    
     quotes <- dplyr::mutate(quotes, spread = (.data$ask_price - .data$bid_price)/.data$ask_price)
+      }
     quotes <- dplyr::filter(quotes, .data$spread < spread_tolerance)
     if(nrow(quotes > 0)) {
       quotes <- dplyr::mutate(quotes, limit = (.data$ask_price + .data$bid_price)/2)
