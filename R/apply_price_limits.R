@@ -27,11 +27,18 @@ apply_price_limits <- function(order_quantities,
   } else {
     # or automatically split the spread
     quotes <- get_quotes(order_quantities$symbol, connection)
+    # drop any quotes where there are 0 entries
     quotes <- dplyr::filter(quotes,
                             !(.data$ask_price == 0),
                             !(.data$bid_price == 0),
                             !(.data$ask_size ==0),
                             !(.data$bid_size ==0))
+    # drop any row where there are NA entries
+    quotes <- dplyr::filter(quotes,
+                            !is.na(.data$ask_price),
+                            !is.na(.data$bid_price),
+                            !is.na(.data$ask_size),
+                            !is.na(.data$bid_size))
     if(nrow(quotes > 0)) {    
     quotes <- dplyr::mutate(quotes, spread = (.data$ask_price - .data$bid_price)/.data$ask_price)
     quotes <- dplyr::filter(quotes, .data$spread < spread_tolerance)
@@ -48,7 +55,7 @@ apply_price_limits <- function(order_quantities,
 
   }
 
-  # at a limit column if it doesn't exist
+  # add a limit column if it doesn't exist
   if(is.null(order_quantities$limit)) {
     order_quantities$limit <- NA
   }
