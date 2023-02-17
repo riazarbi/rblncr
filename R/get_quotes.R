@@ -33,10 +33,15 @@ get_quotes <- function(symbols, connection) {
   } else {
     stop("backend connection failed")
   }
+  
+  # data type tests
+  test1 <- identical(purrr::map(quotes, class), c("character", "numeric", "numeric", "numeric", "numeric"))
 
   # generic tests
-  test <- identical(colnames(quotes),
+  test2 <- identical(colnames(quotes),
                     c("symbol", "ask_price", "ask_size", "bid_price", "bid_size"))
+  
+  test <- test1 & test2
 
   if(!test) {
     stop("data validation failed")
