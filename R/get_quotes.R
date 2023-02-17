@@ -10,13 +10,13 @@
 #' @importFrom purrr map_df
 #'
 get_quotes <- function(symbols, connection) {
-
+  
   # backend implementations
   if(connection$backend == "alpaca") {
     quotes <- purrr::map_df(symbols,
                             function(x) {
                               alpaca_quote(x, connection)})
-
+    
     quotes$symbol <- symbols
     quotes <- dplyr::select(quotes,
                             .data$symbol,
@@ -29,23 +29,26 @@ get_quotes <- function(symbols, connection) {
                             ask_size = .data$as,
                             bid_price = .data$bp,
                             bid_size = .data$bs)
-
+    quotes <- dplyr::mutate(quotes,
+                            across(ask_price:bid_size, as.numeric))
+    
   } else {
     stop("backend connection failed")
   }
   
   # data type tests
-  test1 <- identical(purrr::map(quotes, class), c("character", "numeric", "numeric", "numeric", "numeric"))
-
+  test1 <- all(purrr::map_chr(quotes, class) == c("character", "numeric", "numeric", "numeric", "numeric"))
+  
   # generic tests
   test2 <- identical(colnames(quotes),
-                    c("symbol", "ask_price", "ask_size", "bid_price", "bid_size"))
+                     c("symbol", "ask_price", "ask_size", "bid_price", "bid_size"))
   
   test <- test1 & test2
-
+  
   if(!test) {
     stop("data validation failed")
   } else {
     return(quotes)
   }
 }
+
