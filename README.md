@@ -89,3 +89,10 @@ Here are some R packages that are similar or adjacent to this package. This does
 - [backtest](https://cran.r-project.org/package=backtest): The backtest package provides facilities for exploring portfolio-based conjectures about financial instruments (stocks, bonds, swaps, options, et cetera). 
 - [portfolio](https://cran.r-project.org/package=portfolio): Classes for analysing and implementing equity portfolios, including routines for generating tradelists and calculating exposures to user-specified risk factors.
 - [strand](https://cran.r-project.org/package=strand): Provides a framework for performing discrete (share-level) simulations of investment strategies.
+
+# Python Refactor
+
+I'm deleting R files as I go. 
+
+I've done the alpaca functions, and validation functions. Along with tests. 
+
