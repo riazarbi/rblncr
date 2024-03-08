@@ -89,3 +89,27 @@ Here are some R packages that are similar or adjacent to this package. This does
 - [backtest](https://cran.r-project.org/package=backtest): The backtest package provides facilities for exploring portfolio-based conjectures about financial instruments (stocks, bonds, swaps, options, et cetera). 
 - [portfolio](https://cran.r-project.org/package=portfolio): Classes for analysing and implementing equity portfolios, including routines for generating tradelists and calculating exposures to user-specified risk factors.
 - [strand](https://cran.r-project.org/package=strand): Provides a framework for performing discrete (share-level) simulations of investment strategies.
+
+## Package Development
+
+I use `devtools` to develop. A good guide for R package development is here https://r-pkgs.org.
+
+My development workflow looks like this.
+
+```
+library(devtools)
+load_all()
+test()
+document()
+check(vignettes = FALSE)
+```
+
+If markets are open I can run `check()` and the vignettes will knit.
+
+I use `pkgdown` to build the package website for `rblncr`.
+
+To build the site, enter 
+
+```
+pkgdown::build_site()
+```

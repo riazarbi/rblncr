@@ -46,10 +46,10 @@ apply_price_limits <- function(order_quantities,
 
     if(nrow(quotes) > 0) {
       quotes <- dplyr::mutate(quotes, limit = (.data$ask_price + .data$bid_price)/2)
-      quotes <- dplyr::select(quotes, .data$symbol, .data$limit)
+      quotes <- dplyr::select(quotes, "symbol", "limit")
 
     } else {
-      quotes <- dplyr::select(order_quantities, .data$symbol)
+      quotes <- dplyr::select(order_quantities, "symbol")
       quotes$limit <- NA
     }
 
@@ -64,6 +64,6 @@ apply_price_limits <- function(order_quantities,
   trade_limits <- dplyr::mutate(trade_limits, limit = ifelse(is.na(.data$limit.y), .data$limit.x, .data$limit.y))
   trade_limits <- dplyr::mutate(trade_limits, limit = round(.data$limit,2))
   trade_limits$value <- trade_limits$order * trade_limits$limit
-  trade_limits <- dplyr::select(trade_limits, .data$symbol, .data$order, .data$limit, .data$value)
+  trade_limits <- dplyr::select(trade_limits, "symbol", "order", "limit", "value")
   return(trade_limits)
 }

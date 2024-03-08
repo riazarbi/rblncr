@@ -12,16 +12,19 @@ Encoding: UTF-8
 URL: https://riazarbi.github.io/rblncr/
 BugReports: https://github.com/riazarbi/rblncr/issues
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.3.1
 Imports:
     dplyr,
     httr,
     lubridate,
+    jsonlite,
     purrr,
     yaml,
     utils,
     rlang (>= 1.0.2)
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    testthat (>= 3.0.0)
 VignetteBuilder: knitr
+Config/testthat/edition: 3

@@ -97,11 +97,11 @@ trader <- function(orders,
     order_status <- get_orders(trading_connection)
     order_status <- dplyr::filter(order_status, .data$id %in% submitted$id)
     order_status <- dplyr::select(order_status,
-                                  .data$timestamp,
-                                  .data$id,
-                                  .data$status,
-                                  .data$filled,
-                                  .data$filled_avg_price)
+                                  "timestamp",
+                                  "id",
+                                  "status",
+                                  "filled",
+                                  "filled_avg_price")
 
     order_status <- dplyr::left_join(submitted, order_status, by = "id")
     order_status <- dplyr::mutate(order_status,
@@ -109,21 +109,21 @@ trader <- function(orders,
                                                   .data$status.y,
                                                   .data$status.x))
     order_status <- dplyr::select(order_status,
-                                  .data$timestamp,
-                                  .data$symbol,
-                                  .data$order,
-                                  .data$limit,
-                                  .data$value,
-                                  .data$filled,
-                                  .data$status,
-                                  .data$id)
+                                  "timestamp",
+                                  "symbol",
+                                  "order",
+                                  "limit",
+                                  "value",
+                                  "filled",
+                                  "status",
+                                  "id")
     order_status <- dplyr::select(order_status,
-                                  .data$timestamp,
-                                  .data$symbol,
-                                  .data$order,
-                                  .data$limit,
-                                  .data$filled,
-                                  .data$status)
+                                  "timestamp",
+                                  "symbol",
+                                  "order",
+                                  "limit",
+                                  "filled",
+                                  "status")
     order_status <- dplyr::mutate(order_status,
                                   filled = ifelse(is.na(.data$filled),
                                                   0,
@@ -133,7 +133,7 @@ trader <- function(orders,
     # BUG: IF FILLED NA, KICKS OUT ORDER
     new_orders <- dplyr::mutate(order_status, order = .data$order - .data$filled)
     new_orders <- dplyr::mutate(new_orders, value = .data$order * .data$limit)
-    new_orders <- dplyr::select(new_orders, .data$symbol, .data$order, .data$value)
+    new_orders <- dplyr::select(new_orders, "symbol", "order", "value")
     new_orders <- dplyr::filter(new_orders, .data$order != 0)
 
     hstry <- dplyr::bind_rows(hstry, order_status)

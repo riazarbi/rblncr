@@ -39,7 +39,7 @@ price_portfolio <- function(portfolio,
     stop("invalid price_type")
   }
 
-  prices <- dplyr::select(prices, -.data$timestamp)
+  prices <- dplyr::select(prices, -"timestamp")
   portfolio$assets <- dplyr::left_join(portfolio$assets, prices, by = "symbol")
   portfolio$cash$price <- 1
 

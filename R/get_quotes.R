@@ -19,16 +19,16 @@ get_quotes <- function(symbols, connection) {
     
     quotes$symbol <- symbols
     quotes <- dplyr::select(quotes,
-                            .data$symbol,
-                            .data$ap,
-                            .data$as,
-                            .data$bp,
-                            .data$bs)
+                            "symbol",
+                            "ap",
+                            "as",
+                            "bp",
+                            "bs")
     quotes <- dplyr::rename(quotes,
-                            ask_price = .data$ap,
-                            ask_size = .data$as,
-                            bid_price = .data$bp,
-                            bid_size = .data$bs)
+                            ask_price = "ap",
+                            ask_size = "as",
+                            bid_price = "bp",
+                            bid_size = "bs")
     quotes <- dplyr::mutate(quotes,
                             across(ask_price:bid_size, as.numeric))
     

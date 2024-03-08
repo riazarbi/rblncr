@@ -63,15 +63,15 @@ solve_portfolio <- function(portfolio_priced,
 
   if(terse) {
     portfolio_priced$assets <- dplyr::select(portfolio_priced$assets,
-                                             .data$symbol,
-                                             .data$price,
-                                             .data$out_of_band,
-                                             .data$optimal_order,
-                                             .data$optimal_order_value)
+                                             "symbol",
+                                             "price",
+                                             "out_of_band",
+                                             "optimal_order",
+                                             "optimal_order_value")
     portfolio_priced$cash <- dplyr::select(portfolio_priced$cash,
-                                           .data$currency,
-                                           .data$out_of_band,
-                                           .data$optimal_value)
+                                           "currency",
+                                           "out_of_band",
+                                           "optimal_value")
   }
 
   return(portfolio_priced)

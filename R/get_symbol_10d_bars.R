@@ -12,15 +12,16 @@ get_symbol_10d_bars <- function(symbol, connection) {
     dailies <- alpaca_daily_bars(symbol, 10, connection)
     dailies$t <- lubridate::ymd_hms(dailies$t)
     dailies <- dplyr::rename(dailies,
-                             timestamp = .data$t,
-                             open= .data$o,
-                             high = .data$h,
-                             low = .data$l,
-                             close = .data$c,
-                             volume = .data$v,
-                             trades = .data$n,
-                             vwap = .data$vw)
-    dailies <- dplyr::arrange(dailies, .data$timestamp)
+                             timestamp = t,
+                             open= o,
+                             high = h,
+                             low = l,
+                             close = c,
+                             volume = v,
+                             trades = n,
+                             vwap = vw)
+    
+    dailies <- dplyr::select(dailies, timestamp, dplyr::everything())
 
   } else {
     stop("backend connection failed")
@@ -29,7 +30,7 @@ get_symbol_10d_bars <- function(symbol, connection) {
   # arrange
   dailies <- dplyr::filter(dailies, .data$timestamp < lubridate::today())
   # generic tests
-  test <- identical(colnames(dailies),
+  test <- setequal(colnames(dailies),
                     c("timestamp", "open", "high", "low", "close", "volume", "trades", "vwap"))
 
   if(!test) {

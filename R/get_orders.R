@@ -15,14 +15,14 @@ get_orders <- function(connection) {
   if(connection$backend == "alpaca") {
     order_status <- alpaca_get_orders(connection, status = "all")
     order_status <- dplyr::select(order_status,
-                                  .data$submitted_at,
-                                  .data$id,
-                                  .data$status,
-                                  .data$side,
-                                  .data$qty,
-                                  .data$limit_price,
-                                  .data$filled_qty,
-                                  .data$filled_avg_price)
+                                  "submitted_at",
+                                  "id",
+                                  "status",
+                                  "side",
+                                  "qty",
+                                  "limit_price",
+                                  "filled_qty",
+                                  "filled_avg_price")
     order_status <- dplyr::mutate(order_status,
                                   timestamp = lubridate::as_datetime(.data$submitted_at),
                                   order = ifelse(.data$side == "sell",
@@ -33,13 +33,13 @@ get_orders <- function(connection) {
                                                   as.numeric(.data$filled_qty)),
                                   limit = as.numeric(.data$limit_price))
     order_status <- dplyr::select(order_status,
-                                  .data$timestamp,
-                                  .data$order,
-                                  .data$filled,
-                                  .data$limit,
-                                  .data$filled_avg_price,
-                                  .data$status,
-                                  .data$id)
+                                  "timestamp",
+                                  "order",
+                                  "filled",
+                                  "limit",
+                                  "filled_avg_price",
+                                  "status",
+                                  "id")
 
       } else {
     stop("backend connection failed")

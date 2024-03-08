@@ -4,3 +4,16 @@
 scratch/*
 set_env.R
 source_secrets.R
+Dockerfile
+install.R
+apt.txt
+.bash_history
+.gnupg
+.vscode-server
+.dotnet
+.vscode-R
+docs
+Makefile
+Dockerfile
+.env
+secrets.json

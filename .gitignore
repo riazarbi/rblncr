@@ -7,3 +7,10 @@
 .DS_Store
 scratch/*
 inst/doc
+.bash_history
+.gnupg
+.vscode-server
+.dotnet
+.vscode-R
+.env
+secrets.json

@@ -72,8 +72,8 @@ constrain_orders <- function(solved_portfolio,
   assets$order <- ifelse(assets$optimal_order < 0, -assets$order, assets$order)
 
   # neaten up
-  assets <- dplyr::relocate(assets, .data$daily_volume, .after = .data$price)
-  assets <- dplyr::relocate(assets, .data$value, .after = dplyr::last_col())
+  assets <- dplyr::relocate(assets, "daily_volume", .after = "price")
+  assets <- dplyr::relocate(assets, "value", .after = dplyr::last_col())
 
   # drop sells if buy only constraint
   if(buy_only) {
@@ -85,7 +85,7 @@ constrain_orders <- function(solved_portfolio,
 
   # drop cols if terse
   if(terse) {
-    assets <- dplyr::select(assets, .data$symbol, .data$order, .data$value)
+    assets <- dplyr::select(assets, "symbol", "order", "value")
   }
 
   return(assets)

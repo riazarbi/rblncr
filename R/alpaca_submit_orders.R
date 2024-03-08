@@ -21,8 +21,8 @@ alpaca_submit_orders <- function(orders, alpaca_connection) {
   }
 
   orders_alpaca <- orders
-  orders_alpaca <- dplyr::rename(orders_alpaca, qty = .data$order, limit_price = .data$limit)
-  orders_alpaca <- dplyr::select(orders_alpaca, .data$symbol, .data$qty, .data$limit_price)
+  orders_alpaca <- dplyr::rename(orders_alpaca, qty = "order", limit_price = "limit")
+  orders_alpaca <- dplyr::select(orders_alpaca, "symbol", "qty", "limit_price")
   orders_alpaca <- dplyr::mutate(orders_alpaca, side = ifelse(.data$qty < 0, 'sell','buy'))
   orders_alpaca <- dplyr::mutate(orders_alpaca,
                           qty = as.character(abs(.data$qty)),
@@ -52,7 +52,7 @@ alpaca_submit_orders <- function(orders, alpaca_connection) {
     orders_for_submission
 
     submissions_df <- purrr::map_df(submissions, httr::content)
-    submissions_short <- dplyr::select(submissions_df, .data$symbol, .data$id, .data$status)
+    submissions_short <- dplyr::select(submissions_df, "symbol", "id", "status")
 
     orders_status <- dplyr::bind_rows(orders_alpaca, orders_for_submission)
     orders_status <- dplyr::filter(orders_status, !is.na(.data$status))
@@ -64,22 +64,22 @@ alpaca_submit_orders <- function(orders, alpaca_connection) {
                                                    .data$status.x,
                                                    .data$status.y))
     orders_status <- dplyr::select(orders_status,
-                                   .data$symbol,
-                                   .data$limit_price,
-                                   .data$side,
-                                   .data$type,
-                                   .data$time_in_force,
-                                   .data$status,
-                                   .data$id)
+                                   "symbol",
+                                   "limit_price",
+                                   "side",
+                                   "type",
+                                   "time_in_force",
+                                   "status",
+                                   "id")
 
   } else {
     orders_status <- orders_alpaca
     orders_status$id <-  NA
   }
   orders_status <- dplyr::select(orders_status,
-                                 .data$symbol,
-                                 .data$status,
-                                 .data$id)
+                                 "symbol",
+                                 "status",
+                                 "id")
   orders <- dplyr::left_join(orders, orders_status, by = "symbol")
 
   return(orders)
