@@ -1,6 +1,9 @@
 
 ## --------------------------------------------------------------------
 #' TAKEN FROM DOTENV PACKAGE AT https://github.com/gaborcsardi/dotenv/blob/x/R/dotenv-package.r
+#' I take no credit for this code, but I am including it as source code rather than 
+#' as an import because I depend on it greatly and worry the package might disappear
+#' from CRAN.
 #' 
 #' Load configuration parameters from .env into environment variables
 #'
@@ -12,11 +15,11 @@
 #' in the current working directory (as reported by \code{getwd}),
 #' and sets them as environment variables.
 #'
-#' This happens automatically when the \code{dotenv} package is loaded,
-#' so the typical use-case is to just put a `library(dotenv)` code at the
+#' This happens automatically when the \code{rblncr} package is loaded,
+#' so the typical use-case is to just put a `library(rblncr)` code at the
 #' beginning of your R script.
 #'
-#' Alternatively a \code{dotenv::load_dot_env()} call can be used
+#' Alternatively a \code{rblncr::load_dot_env()} call can be used
 #' to load variables from arbitrary files.
 #'
 #' The format of the \code{.env} file is also a valid unix shell
