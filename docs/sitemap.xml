@@ -43,6 +43,9 @@
     <loc>/reference/create_portfolio_model.html</loc>
   </url>
   <url>
+    <loc>/reference/dot-onLoad.html</loc>
+  </url>
+  <url>
     <loc>/reference/get_cash.html</loc>
   </url>
   <url>
@@ -59,6 +62,9 @@
   </url>
   <url>
     <loc>/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>/reference/load_dot_env.html</loc>
   </url>
   <url>
     <loc>/reference/load_portfolio_targets.html</loc>

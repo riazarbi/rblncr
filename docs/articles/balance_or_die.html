@@ -119,7 +119,7 @@ can achieve this with a <code>while</code> loop.</p>
 <code class="sourceCode R"><span><span class="va">name</span> <span class="op">&lt;-</span> <span class="st">"sample_portfolio"</span></span>
 <span><span class="va">description</span> <span class="op">&lt;-</span> <span class="st">"create from function"</span></span>
 <span><span class="va">cash</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>percent <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
-<span><span class="va">assets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>symbol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"AAPL"</span>,<span class="st">"GOOG"</span><span class="op">)</span>, percent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">70.5</span>,<span class="fl">19.5</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">assets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>symbol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"AAPL"</span>,<span class="st">"GOOG"</span><span class="op">)</span>, percent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">60</span>,<span class="fl">30</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">tolerance</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>percent <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
 <span><span class="va">cooldown</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>days <span class="op">=</span> <span class="fl">365</span><span class="op">)</span></span>
 <span></span>
@@ -152,7 +152,7 @@ can achieve this with a <code>while</code> loop.</p>
 <span><span class="va">i</span> <span class="op">&lt;-</span> <span class="va">i</span> <span class="op">+</span> <span class="fl">1</span></span>
 <span><span class="op">}</span></span>
 <span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">attempts</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">drift_changes</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map_df</a></span><span class="op">(</span><span class="va">attempts</span>, <span class="op">~</span> <span class="va">.x</span><span class="op">$</span><span class="va">drift</span>, .id <span class="op">=</span> <span class="st">"run"</span><span class="op">)</span></span>
+<span>  <span class="va">drift_changes</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map_dfr.html" class="external-link">map_df</a></span><span class="op">(</span><span class="va">attempts</span>, <span class="op">~</span> <span class="va">.x</span><span class="op">$</span><span class="va">drift</span>, .id <span class="op">=</span> <span class="st">"run"</span><span class="op">)</span></span>
 <span>  <span class="va">drift_changes</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="va">drift_changes</span>, run <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">run</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>These are the trades attempted by the <code><a href="../reference/trader.html">trader()</a></code>. The
@@ -161,68 +161,22 @@ broker because they didn’t have sufficient information. Generally this
 happens when the order quantity is zero, or the data connection did not
 return sufficient information to create a limit order.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">trades</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map_df</a></span><span class="op">(</span><span class="va">attempts</span>, <span class="op">~</span> <span class="va">.x</span><span class="op">$</span><span class="va">trades</span>, .id <span class="op">=</span> <span class="st">"run"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">trades</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map_dfr.html" class="external-link">map_df</a></span><span class="op">(</span><span class="va">attempts</span>, <span class="op">~</span> <span class="va">.x</span><span class="op">$</span><span class="va">trades</span>, .id <span class="op">=</span> <span class="st">"run"</span><span class="op">)</span></span>
 <span><span class="va">trades</span></span>
-<span><span class="co">#&gt;    run           timestamp symbol order  limit filled   status</span></span>
-<span><span class="co">#&gt; 1    1                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 2    1                &lt;NA&gt;   GOOG  -115     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 3    1                &lt;NA&gt;   TSLA   -48     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 4    1 2022-11-07 14:44:19     VT  -119  83.78      0 canceled</span></span>
-<span><span class="co">#&gt; 5    1                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 6    1 2022-11-07 14:44:34   GOOG  -115  87.30   -115   filled</span></span>
-<span><span class="co">#&gt; 7    1                &lt;NA&gt;   TSLA   -48     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 8    1                &lt;NA&gt;     VT  -119     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 9    1                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 10   1 2022-11-07 14:44:49   TSLA   -48 202.92      0 canceled</span></span>
-<span><span class="co">#&gt; 11   1 2022-11-07 14:44:49     VT  -119  83.75   -119   filled</span></span>
-<span><span class="co">#&gt; 12   1                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 13   1                &lt;NA&gt;   TSLA   -48     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 14   2                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 15   2                &lt;NA&gt;   GOOG   -66     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 16   2                &lt;NA&gt;   TSLA   -48     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 17   2 2022-11-07 14:45:25     VT  -119  83.72   -119   filled</span></span>
-<span><span class="co">#&gt; 18   2                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 19   2 2022-11-07 14:45:40   GOOG   -66  87.46    -66   filled</span></span>
-<span><span class="co">#&gt; 20   2                &lt;NA&gt;   TSLA   -48     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 21   2                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 22   2                &lt;NA&gt;   TSLA   -48     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 23   2                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 24   2                &lt;NA&gt;   TSLA   -48     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 25   2                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 26   2                &lt;NA&gt;   TSLA   -48     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 27   3                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 28   3                &lt;NA&gt;   TSLA   -48     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 29   3                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 30   3                &lt;NA&gt;   TSLA   -48     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 31   3                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 32   3                &lt;NA&gt;   TSLA   -48     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 33   3                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 34   3                &lt;NA&gt;   TSLA   -48     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 35   3                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 36   3 2022-11-07 14:47:39   TSLA   -48 201.36    -48   filled</span></span>
-<span><span class="co">#&gt; 37   4 2022-11-07 14:47:58   AAPL    72 136.12     72   filled</span></span>
-<span><span class="co">#&gt; 38   4                &lt;NA&gt;   TSLA   -48     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 39   4                &lt;NA&gt;   TSLA   -48     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 40   4                &lt;NA&gt;   TSLA   -48     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 41   4 2022-11-07 14:48:40   TSLA   -48 201.02    -48   filled</span></span>
-<span><span class="co">#&gt; 42   5                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 43   5                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 44   5                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 45   5                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 46   5                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 47   6                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 48   6                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 49   6                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 50   6                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 51   6                &lt;NA&gt;   AAPL    72     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 52   7 2022-11-07 14:51:27   AAPL    72 136.11     72   filled</span></span>
-<span><span class="co">#&gt; 53   8 2022-11-07 14:51:46   AAPL    66 135.97     66   filled</span></span></code></pre></div>
+<span><span class="co">#&gt;   run           timestamp symbol order  limit filled   status</span></span>
+<span><span class="co">#&gt; 1   1 2024-03-11 16:23:43   TSLA   -28 178.76      0 canceled</span></span>
+<span><span class="co">#&gt; 2   1 2024-03-11 16:23:44     VT   -91 108.59    -91   filled</span></span>
+<span><span class="co">#&gt; 3   1                &lt;NA&gt;   TSLA   -28     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 4   1 2024-03-11 16:24:12   TSLA   -28 178.80      0 canceled</span></span>
+<span><span class="co">#&gt; 5   1 2024-03-11 16:24:26   TSLA   -28 178.68    -28   filled</span></span></code></pre></div>
 <p>We can see how the portfolio drift converges to zero over time.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">attempts</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">drift_changes</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">run</span>, y <span class="op">=</span> <span class="va">drift</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">symbol</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div>
+<span><span class="op">}</span></span>
+<span><span class="co">#&gt; `geom_line()`: Each group consists of only one observation.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Do you need to adjust the <span style="color: #00BB00;">group</span> aesthetic?</span></span></code></pre></div>
 <p><img src="balance_or_die_files/figure-html/plot_drift-1.png" width="700"></p>
 <p>Here are the portfolio weights post-rebalance. You can see that we
 have managed to achieve our target balances (within tolerance).</p>
@@ -233,8 +187,8 @@ have managed to achieve our target balances (within tolerance).</p>
 <span>  <span class="fu">magrittr</span><span class="fu">::</span><span class="fu"><a href="https://magrittr.tidyverse.org/reference/aliases.html" class="external-link">extract2</a></span><span class="op">(</span><span class="st">"assets"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">symbol</span>, <span class="va">percent_held</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   symbol percent_held</span></span>
-<span><span class="co">#&gt; 1   AAPL        70.48</span></span>
-<span><span class="co">#&gt; 2   GOOG        19.49</span></span></code></pre></div>
+<span><span class="co">#&gt; 1   AAPL        60.69</span></span>
+<span><span class="co">#&gt; 2   GOOG        29.62</span></span></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -252,7 +206,7 @@ have managed to achieve our target balances (within tolerance).</p>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

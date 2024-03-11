@@ -170,6 +170,21 @@ $trades
 <a href="https://cran.r-project.org/package=strand" class="external-link">strand</a>: Provides a framework for performing discrete (share-level) simulations of investment strategies.</li>
 </ul>
 </div>
+<div class="section level2">
+<h2 id="package-development">Package Development<a class="anchor" aria-label="anchor" href="#package-development"></a>
+</h2>
+<p>I use <code>devtools</code> to develop. A good guide for R package development is here <a href="https://r-pkgs.org" class="external-link uri">https://r-pkgs.org</a>.</p>
+<p>My development workflow looks like this.</p>
+<pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://devtools.r-lib.org/reference/load_all.html" class="external-link">load_all</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://devtools.r-lib.org/reference/test.html" class="external-link">test</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://devtools.r-lib.org/reference/document.html" class="external-link">document</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://devtools.r-lib.org/reference/check.html" class="external-link">check</a></span><span class="op">(</span>vignettes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre>
+<p>If markets are open I can run <code>check()</code> and the vignettes will knit.</p>
+<p>I use <code>pkgdown</code> to build the package website for <code>rblncr</code>.</p>
+<p>To build the site, enter</p>
+<pre><code><span><span class="fu">pkgdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgdown.r-lib.org/reference/build_site.html" class="external-link">build_site</a></span><span class="op">(</span><span class="op">)</span></span></code></pre>
+</div>
 </div>
   </div>
 
@@ -218,7 +233,7 @@ $trades
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

@@ -46,7 +46,7 @@ Then we create or load our model. Here we want a portoflio that is 70.% AAPL, an
 name <- "sample_portfolio"
 description <- "create from function"
 cash <- list(percent = 10)
-assets <- data.frame(symbol = c("AAPL","GOOG"), percent = c(70.5,19.5))
+assets <- data.frame(symbol = c("AAPL","GOOG"), percent = c(60,30))
 tolerance <- list(percent = 5)
 cooldown <- list(days = 365)
 
