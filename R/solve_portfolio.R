@@ -9,6 +9,7 @@
 #' @importFrom rlang .data
 #' @importFrom dplyr select
 #' @examples
+#'\dontrun{
 #' t_conn <- alpaca_connect('paper',
 #'                          Sys.getenv("ALPACA_PAPER_KEY"),
 #'                          Sys.getenv("ALPACA_PAPER_SECRET"))
@@ -22,7 +23,7 @@
 #'   load_portfolio_targets(portfolio_model) |>
 #'   price_portfolio(connection = d_conn, price_type = 'close') |>
 #'   solve_portfolio()
-#'
+#'}
 #'
 solve_portfolio <- function(portfolio_priced,
                             terse  = TRUE) {

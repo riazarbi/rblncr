@@ -18,6 +18,7 @@ an extended portfolio object which can be passed to \code{price_portfolio()}
 Load portfolio targets
 }
 \examples{
+\dontrun{
 t_conn <- alpaca_connect('paper',
                          Sys.getenv("ALPACA_PAPER_KEY"),
                          Sys.getenv("ALPACA_PAPER_SECRET"))
@@ -26,5 +27,5 @@ portfolio_model <- read_portfolio_model(system.file(package='rblncr','extdata/sa
 
 get_portfolio_current(t_conn) |>
   load_portfolio_targets(portfolio_model)
-
+}
 }

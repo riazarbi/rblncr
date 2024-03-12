@@ -2,7 +2,7 @@
 title: "Scheduled rebalancing"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{scheduled_rebalance}
+  %\VignetteIndexEntry{Scheduled rebalancing}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

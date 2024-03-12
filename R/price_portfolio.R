@@ -14,6 +14,7 @@
 #' @importFrom rlang .data
 #' @importFrom dplyr rename left_join select
 #' @examples
+#'\dontrun{
 #' t_conn <- alpaca_connect('paper',
 #'                          Sys.getenv("ALPACA_PAPER_KEY"),
 #'                          Sys.getenv("ALPACA_PAPER_SECRET"))
@@ -26,7 +27,7 @@
 #' get_portfolio_current(t_conn) |>
 #'   load_portfolio_targets(portfolio_model) |>
 #'   price_portfolio(connection = d_conn, price_type = 'close')
-#'
+#'}
 price_portfolio <- function(portfolio,
                             connection,
                             price_type = 'close',

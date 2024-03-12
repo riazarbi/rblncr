@@ -36,6 +36,7 @@ a data frame of orders that meet the constraints
 Ensure that the orders submitted to a \code{trader()} are within specified constraints.
 }
 \examples{
+\dontrun{
 t_conn <- alpaca_connect('paper',
                          Sys.getenv("ALPACA_PAPER_KEY"),
                          Sys.getenv("ALPACA_PAPER_SECRET"))
@@ -50,6 +51,6 @@ get_portfolio_current(t_conn) |>
   price_portfolio(connection = d_conn, price_type = 'close') |>
   solve_portfolio() |>
   constrain_orders(d_conn)
-
+}
 
 }

@@ -20,7 +20,9 @@ a connection object that you will pass to other rblncr functions
 Use this function to specify which credentials to use to connect to Alpaca.
 }
 \examples{
+#'\dontrun{
 alpaca_connect(mode = "paper",
                api_key = "REDACTED",
                api_secret = "REDACTED")
+}                
 }

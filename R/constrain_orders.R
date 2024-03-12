@@ -18,6 +18,7 @@
 #' @importFrom dplyr relocate last_col mutate select
 #' @importFrom purrr map map_dbl
 #' @examples
+#'\dontrun{
 #' t_conn <- alpaca_connect('paper',
 #'                          Sys.getenv("ALPACA_PAPER_KEY"),
 #'                          Sys.getenv("ALPACA_PAPER_SECRET"))
@@ -32,7 +33,7 @@
 #'   price_portfolio(connection = d_conn, price_type = 'close') |>
 #'   solve_portfolio() |>
 #'   constrain_orders(d_conn)
-#'
+#'}
 #'
 constrain_orders <- function(solved_portfolio,
                              connection,

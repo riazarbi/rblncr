@@ -2,7 +2,7 @@
 title: "Balance or Die"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{balance_or_die}
+  %\VignetteIndexEntry{Balance or Die}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

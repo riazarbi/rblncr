@@ -1,9 +1,12 @@
 
 ## --------------------------------------------------------------------
-#' TAKEN FROM DOTENV PACKAGE AT https://github.com/gaborcsardi/dotenv/blob/x/R/dotenv-package.r
-#' I take no credit for this code, but I am including it as source code rather than 
-#' as an import because I depend on it greatly and worry the package might disappear
-#' from CRAN.
+#' TAKEN FROM DOTENV PACKAGE AT 
+#' https://github.com/gaborcsardi/dotenv/blob/x/R/dotenv-package.r
+#' I take no credit for this code - gaborscardi is the person who did this 
+#' good work.
+#' I am including it as source code rather than 
+#' as an import because I depend on it greatly and worry the package might 
+#' disappear from CRAN.
 #' 
 #' Load configuration parameters from .env into environment variables
 #'

@@ -27,6 +27,7 @@ a portfolio object with closing prices which can be passed to \code{solve_portfo
 Get the current value of a portfolio's holdings
 }
 \examples{
+\dontrun{
 t_conn <- alpaca_connect('paper',
                          Sys.getenv("ALPACA_PAPER_KEY"),
                          Sys.getenv("ALPACA_PAPER_SECRET"))
@@ -39,5 +40,5 @@ portfolio_model <- read_portfolio_model(system.file(package='rblncr','extdata/sa
 get_portfolio_current(t_conn) |>
   load_portfolio_targets(portfolio_model) |>
   price_portfolio(connection = d_conn, price_type = 'close')
-
+}
 }

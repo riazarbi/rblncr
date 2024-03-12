@@ -8,9 +8,11 @@
 #' @return a connection object that you will pass to other rblncr functions
 #' @export
 #' @examples
+#' #'\dontrun{
 #' alpaca_connect(mode = "paper",
 #'                api_key = "REDACTED",
 #'                api_secret = "REDACTED")
+#'}                
 alpaca_connect <- function(mode, api_key, api_secret) {
   backend <- "alpaca"
   domain <- alpaca_domain(mode)

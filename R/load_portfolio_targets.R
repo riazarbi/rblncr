@@ -10,6 +10,7 @@
 #' @importFrom rlang .data
 #' @importFrom dplyr full_join rename
 #' @examples
+#'\dontrun{
 #' t_conn <- alpaca_connect('paper',
 #'                          Sys.getenv("ALPACA_PAPER_KEY"),
 #'                          Sys.getenv("ALPACA_PAPER_SECRET"))
@@ -18,7 +19,7 @@
 #'
 #' get_portfolio_current(t_conn) |>
 #'   load_portfolio_targets(portfolio_model)
-#'
+#'}
 load_portfolio_targets <- function(portfolio, portfolio_model) {
   assets <- dplyr::full_join(portfolio$assets,
                              portfolio_model$assets, by = "symbol")
