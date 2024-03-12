@@ -14,6 +14,7 @@ balance_portfolio(
   pricing_spread_tolerance = 0.02,
   pricing_overrides = NULL,
   trader_life = 30,
+  exit_if_market_closed = TRUE,
   resubmit_interval = 5,
   buy_only = FALSE,
   verbose = TRUE
@@ -37,6 +38,8 @@ balance_portfolio(
 \item{pricing_overrides}{options. Use this to set your own symbol price limits}
 
 \item{trader_life}{duration in seconds that the \code{trader()} should keep trading before timing out}
+
+\item{exit_if_market_closed}{should the \code{trader()} quit if the market is closed}
 
 \item{resubmit_interval}{duration in seconds that a \code{trader()} should keep an order in the market before cancelling it and resubmitting at an updated limit price}
 

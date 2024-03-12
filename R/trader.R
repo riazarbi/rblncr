@@ -9,6 +9,7 @@
 #' @param pricing_connection the backend trading connection for computing price limits
 #' @param pricing_spread_tolerance the maximum bid-ask spread which can be tolerated for a limit price to be computed
 #' @param pricing_overrides optional data frame of limit prices to assign to each symbol
+#' @param exit_if_market_closed should the `trader()` quit if the market is closed
 #' @param verbose TRUE/FALSE should the function be chatty?
 #'
 #' @return a data frame detailing the outcome of each attempted order
@@ -17,6 +18,7 @@
 #' @importFrom dplyr filter select left_join mutate bind_rows
 #' @importFrom lubridate POSIXct
 #' @examples
+#'\dontrun{
 #' t_conn <- alpaca_connect('paper',
 #'                          Sys.getenv("ALPACA_PAPER_KEY"),
 #'                          Sys.getenv("ALPACA_PAPER_SECRET"))
@@ -34,7 +36,7 @@
 #'   trader(trading_connection = t_conn,
 #'          pricing_connection = d_conn,
 #'          verbose = FALSE)
-#'
+#'}
 trader <- function(orders,
                           trader_life = 300,
                           resubmit_interval = 5,
@@ -42,8 +44,15 @@ trader <- function(orders,
                           pricing_connection = NULL,
                           pricing_spread_tolerance = 0.01,
                           pricing_overrides = NULL,
+                          exit_if_market_closed = TRUE,
                           verbose = TRUE) {
   start <- Sys.time()
+  if(!(market_open(trading_connection)) & exit_if_market_closed) {
+    if(verbose) {
+      message("\n\nMARKET IS NOT OPEN. EXITING.\n")
+    }
+    return(NA)
+  }
   timed_out <- FALSE
 
   new_orders <- dplyr::filter(orders,

@@ -11,6 +11,7 @@
 #' @param pricing_spread_tolerance limit order setting function will not set a price if the bid-ask spread for a symbol is greater than this spread
 #' @param pricing_overrides options. Use this to set your own symbol price limits
 #' @param trader_life duration in seconds that the `trader()` should keep trading before timing out
+#' @param exit_if_market_closed should the `trader()` quit if the market is closed
 #' @param resubmit_interval duration in seconds that a `trader()` should keep an order in the market before cancelling it and resubmitting at an updated limit price
 #' @param buy_only TRUE/FALSE flag to indicate whether the `trader()` should limit itself to only buy orders
 #' @param verbose TRUE/FALSE flag to indicate if the function should emit messages
@@ -43,6 +44,7 @@ balance_portfolio <- function(portfolio_model,
                               pricing_spread_tolerance = 0.02,
                               pricing_overrides = NULL,
                               trader_life = 30,
+                              exit_if_market_closed = TRUE,
                               resubmit_interval = 5,
                               buy_only = FALSE,
                               verbose = TRUE) {
@@ -93,6 +95,7 @@ balance_portfolio <- function(portfolio_model,
                        pricing_connection = pricing_connection,
                        pricing_spread_tolerance = pricing_spread_tolerance,
                        pricing_overrides = pricing_overrides,
+                       exit_if_market_closed = exit_if_market_closed,
                        verbose = verbose)
 
       if(verbose){message(paste0("\nORDER LOG:"))}

@@ -12,6 +12,7 @@ trader(
   pricing_connection = NULL,
   pricing_spread_tolerance = 0.01,
   pricing_overrides = NULL,
+  exit_if_market_closed = TRUE,
   verbose = TRUE
 )
 }
@@ -30,6 +31,8 @@ trader(
 
 \item{pricing_overrides}{optional data frame of limit prices to assign to each symbol}
 
+\item{exit_if_market_closed}{should the \code{trader()} quit if the market is closed}
+
 \item{verbose}{TRUE/FALSE should the function be chatty?}
 }
 \value{
@@ -39,6 +42,7 @@ a data frame detailing the outcome of each attempted order
 Interact with a trading backend
 }
 \examples{
+\dontrun{
 t_conn <- alpaca_connect('paper',
                          Sys.getenv("ALPACA_PAPER_KEY"),
                          Sys.getenv("ALPACA_PAPER_SECRET"))
@@ -56,5 +60,5 @@ get_portfolio_current(t_conn) |>
   trader(trading_connection = t_conn,
          pricing_connection = d_conn,
          verbose = FALSE)
-
+}
 }
