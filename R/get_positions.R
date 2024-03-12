@@ -16,9 +16,6 @@ get_positions <- function(connection) {
     stop("backend connection failed")
   }
 
-  if(!test) {
-    stop("data validation failed")
-  } else {
-    return(positions)
-  }
+  return(positions)
+
 }

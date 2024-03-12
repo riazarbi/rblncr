@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rblncr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.1</span>
       </span>
     </div>
 
@@ -160,8 +160,8 @@ to disk, and then read it.</p>
 <span><span class="co">#&gt;   ..$ percent: num 5</span></span>
 <span><span class="co">#&gt;  $ cooldown   :List of 1</span></span>
 <span><span class="co">#&gt;   ..$ days: num 365</span></span>
-<span><span class="co">#&gt;  $ created_at : chr "2024-03-11T16:24:46"</span></span>
-<span><span class="co">#&gt;  $ updated_at : chr "2024-03-11T16:24:46"</span></span>
+<span><span class="co">#&gt;  $ created_at : chr "2024-03-12T14:46:49"</span></span>
+<span><span class="co">#&gt;  $ updated_at : chr "2024-03-12T14:46:49"</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/save_portfolio_model.html">save_portfolio_model</a></span><span class="op">(</span><span class="va">model</span>, <span class="st">"/tmp/model.yaml"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "/tmp/model.yaml"</span></span></code></pre></div>
@@ -191,12 +191,12 @@ current portfolio holdings.</p>
 <span><span class="va">holdings</span></span>
 <span><span class="co">#&gt; $cash</span></span>
 <span><span class="co">#&gt;   currency quantity_held</span></span>
-<span><span class="co">#&gt; 1      USD       9535.85</span></span>
+<span><span class="co">#&gt; 1      USD      10029.16</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $assets</span></span>
 <span><span class="co">#&gt;   symbol quantity_held</span></span>
-<span><span class="co">#&gt; 1   AAPL           350</span></span>
-<span><span class="co">#&gt; 2   GOOG           214</span></span></code></pre></div>
+<span><span class="co">#&gt; 1   AAPL           346</span></span>
+<span><span class="co">#&gt; 2   GOOG           215</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="compute-balancing-orders">Compute Balancing Orders<a class="anchor" aria-label="anchor" href="#compute-balancing-orders"></a>
@@ -209,12 +209,12 @@ model.</p>
 <span><span class="va">targets</span></span>
 <span><span class="co">#&gt; $cash</span></span>
 <span><span class="co">#&gt;   currency quantity_held percent_target</span></span>
-<span><span class="co">#&gt; 1      USD       9535.85             10</span></span>
+<span><span class="co">#&gt; 1      USD      10029.16             10</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $assets</span></span>
 <span><span class="co">#&gt;   symbol quantity_held percent_target</span></span>
-<span><span class="co">#&gt; 1   AAPL           350           80.5</span></span>
-<span><span class="co">#&gt; 2   GOOG           214            9.5</span></span>
+<span><span class="co">#&gt; 1   AAPL           346           80.5</span></span>
+<span><span class="co">#&gt; 2   GOOG           215            9.5</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $tolerance</span></span>
 <span><span class="co">#&gt; $tolerance$percent</span></span>
@@ -234,12 +234,12 @@ we need to submit to balance our portfolio.</p>
 <span><span class="va">solution</span></span>
 <span><span class="co">#&gt; $cash</span></span>
 <span><span class="co">#&gt;   currency out_of_band optimal_value</span></span>
-<span><span class="co">#&gt; 1      USD       FALSE       9970.97</span></span>
+<span><span class="co">#&gt; 1      USD       FALSE      10068.84</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $assets</span></span>
 <span><span class="co">#&gt;   symbol  price out_of_band optimal_order optimal_order_value</span></span>
-<span><span class="co">#&gt; 1   AAPL 170.73        TRUE           114            19463.22</span></span>
-<span><span class="co">#&gt; 2   GOOG 136.29        TRUE          -146           -19898.34</span></span>
+<span><span class="co">#&gt; 1   AAPL 172.75        TRUE           118            20384.50</span></span>
+<span><span class="co">#&gt; 2   GOOG 138.94        TRUE          -147           -20424.18</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $tolerance</span></span>
 <span><span class="co">#&gt; $tolerance$percent</span></span>
@@ -260,8 +260,8 @@ too small may incure excessive fees and create unnecessary churn.</p>
 <span>                  max_order_size <span class="op">=</span> <span class="fl">10000</span> <span class="op">)</span></span>
 <span><span class="va">orders</span></span>
 <span><span class="co">#&gt;   symbol order    value</span></span>
-<span><span class="co">#&gt; 1   AAPL    58  9902.34</span></span>
-<span><span class="co">#&gt; 2   GOOG   -73 -9949.17</span></span></code></pre></div>
+<span><span class="co">#&gt; 1   AAPL    57  9846.75</span></span>
+<span><span class="co">#&gt; 2   GOOG   -71 -9864.74</span></span></code></pre></div>
 <p>Now that we have safely resized our orders, we can submit them to the
 trader.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
@@ -271,6 +271,64 @@ trader.</p>
 <span>       trading_connection <span class="op">=</span> <span class="va">t_conn</span>, </span>
 <span>       pricing_connection <span class="op">=</span> <span class="va">d_conn</span><span class="op">)</span></span>
 <span><span class="co">#&gt; there are 2 new orders to fill</span></span>
+<span><span class="co">#&gt;  - pricing new orders</span></span>
+<span><span class="co">#&gt;  - submitting orders</span></span>
+<span><span class="co">#&gt;  - waiting 5 seconds for orders to fill</span></span>
+<span><span class="co">#&gt;  - attempting to cancel all unfilled orders</span></span>
+<span><span class="co">#&gt;  - all open orders cancelled</span></span>
+<span><span class="co">#&gt;  - getting order statuses</span></span>
+<span><span class="co">#&gt;  - calculating remaining order amounts</span></span>
+<span><span class="co">#&gt; there are 1 new orders to fill</span></span>
+<span><span class="co">#&gt;  - pricing new orders</span></span>
+<span><span class="co">#&gt;  - submitting orders</span></span>
+<span><span class="co">#&gt;  - waiting 5 seconds for orders to fill</span></span>
+<span><span class="co">#&gt;  - attempting to cancel all unfilled orders</span></span>
+<span><span class="co">#&gt;  - all open orders cancelled</span></span>
+<span><span class="co">#&gt;  - getting order statuses</span></span>
+<span><span class="co">#&gt;  - calculating remaining order amounts</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; commencing trader wind-down</span></span>
+<span><span class="co">#&gt;  - attempting to cancel all unfilled orders</span></span>
+<span><span class="co">#&gt;  - trader wind-down cancellation success</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; NO ORDERS TO EXECUTE. EXITING.</span></span>
+<span><span class="co">#&gt;             timestamp symbol order  limit filled   status</span></span>
+<span><span class="co">#&gt; 1 2024-03-12 14:46:53   AAPL    57 172.62     57   filled</span></span>
+<span><span class="co">#&gt; 2                &lt;NA&gt;   GOOG   -71     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 3 2024-03-12 14:47:02   GOOG   -71 139.63    -71   filled</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="all-in-one">All in one<a class="anchor" aria-label="anchor" href="#all-in-one"></a>
+</h2>
+<p>The above code flow is useful if you want fine grained control of the
+rebalancing process, or if you want to log data from the pipeline to
+disk. Generally speaking, it is much more convenient to just use the
+<code><a href="../reference/balance_portfolio.html">balance_portfolio()</a></code> wrapper function.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/balance_portfolio.html">balance_portfolio</a></span><span class="op">(</span><span class="va">model</span>,</span>
+<span>                  <span class="va">t_conn</span>,</span>
+<span>                  <span class="va">d_conn</span>,</span>
+<span>                  verbose <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; # TRADE RUN</span></span>
+<span><span class="co">#&gt; MAX ASSET DRIFT: 111.76%</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ORDERS FOR THIS RUN:</span></span>
+<span><span class="co">#&gt;   symbol order    value</span></span>
+<span><span class="co">#&gt; 1   AAPL    57  9846.75</span></span>
+<span><span class="co">#&gt; 2   GOOG   -71 -9864.74</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; there are 2 new orders to fill</span></span>
+<span><span class="co">#&gt;  - pricing new orders</span></span>
+<span><span class="co">#&gt;  - submitting orders</span></span>
+<span><span class="co">#&gt;  - waiting 5 seconds for orders to fill</span></span>
+<span><span class="co">#&gt;  - attempting to cancel all unfilled orders</span></span>
+<span><span class="co">#&gt;  - all open orders cancelled</span></span>
+<span><span class="co">#&gt;  - getting order statuses</span></span>
+<span><span class="co">#&gt;  - calculating remaining order amounts</span></span>
+<span><span class="co">#&gt; there are 1 new orders to fill</span></span>
 <span><span class="co">#&gt;  - pricing new orders</span></span>
 <span><span class="co">#&gt;  - submitting orders</span></span>
 <span><span class="co">#&gt;  - waiting 5 seconds for orders to fill</span></span>
@@ -302,37 +360,34 @@ trader.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; NO ORDERS TO EXECUTE. EXITING.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ORDER LOG:</span></span>
 <span><span class="co">#&gt;             timestamp symbol order  limit filled   status</span></span>
-<span><span class="co">#&gt; 1 2024-03-11 16:24:50   AAPL    58 173.11     58   filled</span></span>
-<span><span class="co">#&gt; 2 2024-03-11 16:24:50   GOOG   -73 139.77      0 canceled</span></span>
-<span><span class="co">#&gt; 3                &lt;NA&gt;   GOOG   -73     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 4 2024-03-11 16:25:08   GOOG   -73 139.01    -73   filled</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="all-in-one">All in one<a class="anchor" aria-label="anchor" href="#all-in-one"></a>
-</h2>
-<p>The above code flow is useful if you want fine grained control of the
-rebalancing process, or if you want to log data from the pipeline to
-disk. Generally speaking, it is much more convenient to just use the
-<code><a href="../reference/balance_portfolio.html">balance_portfolio()</a></code> wrapper function.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/balance_portfolio.html">balance_portfolio</a></span><span class="op">(</span><span class="va">model</span>,</span>
-<span>                  <span class="va">t_conn</span>,</span>
-<span>                  <span class="va">d_conn</span>,</span>
-<span>                  verbose <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 1 2024-03-12 14:47:14   AAPL    57 172.61     57   filled</span></span>
+<span><span class="co">#&gt; 2                &lt;NA&gt;   GOOG   -71     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 3                &lt;NA&gt;   GOOG   -71     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 4                &lt;NA&gt;   GOOG   -71     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 5 2024-03-12 14:47:42   GOOG   -71 139.08    -71   filled</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; # TALLY RUN</span></span>
+<span><span class="co">#&gt; MAX ASSET DRIFT: 7.35%</span></span>
+<span><span class="co">#&gt; TALLY COMPLETE.</span></span>
 <span><span class="co">#&gt; $portfolio_balanced</span></span>
-<span><span class="co">#&gt; [1] TRUE</span></span>
+<span><span class="co">#&gt; [1] FALSE</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $drift</span></span>
 <span><span class="co">#&gt;   symbol drift</span></span>
-<span><span class="co">#&gt; 1   AAPL  0.22</span></span>
-<span><span class="co">#&gt; 2   GOOG  0.00</span></span>
+<span><span class="co">#&gt; 1   AAPL  0.86</span></span>
+<span><span class="co">#&gt; 2   GOOG  7.35</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $trades</span></span>
 <span><span class="co">#&gt;             timestamp symbol order  limit filled   status</span></span>
-<span><span class="co">#&gt; 1 2024-03-11 16:25:20   AAPL    56 173.03      0 canceled</span></span>
-<span><span class="co">#&gt; 2 2024-03-11 16:25:20   GOOG   -73 139.25    -73   filled</span></span>
-<span><span class="co">#&gt; 3 2024-03-11 16:25:29   AAPL    56 173.03     56   filled</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 2024-03-12 14:47:14   AAPL    57 172.61     57   filled</span></span>
+<span><span class="co">#&gt; 2                &lt;NA&gt;   GOOG   -71     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 3                &lt;NA&gt;   GOOG   -71     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 4                &lt;NA&gt;   GOOG   -71     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 5 2024-03-12 14:47:42   GOOG   -71 139.08    -71   filled</span></span></code></pre></div>
 <p>Note that the <code><a href="../reference/balance_portfolio.html">balance_portfolio()</a></code> won’t necessarily
 rebalance your portfolio! Because we care about constraining our order
 size and price to get the best deals we can, the function will exit once

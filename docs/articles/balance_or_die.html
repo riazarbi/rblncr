@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rblncr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.1</span>
       </span>
     </div>
 
@@ -164,19 +164,20 @@ return sufficient information to create a limit order.</p>
 <code class="sourceCode R"><span><span class="va">trades</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map_dfr.html" class="external-link">map_df</a></span><span class="op">(</span><span class="va">attempts</span>, <span class="op">~</span> <span class="va">.x</span><span class="op">$</span><span class="va">trades</span>, .id <span class="op">=</span> <span class="st">"run"</span><span class="op">)</span></span>
 <span><span class="va">trades</span></span>
 <span><span class="co">#&gt;   run           timestamp symbol order  limit filled   status</span></span>
-<span><span class="co">#&gt; 1   1 2024-03-11 16:23:43   TSLA   -28 178.76      0 canceled</span></span>
-<span><span class="co">#&gt; 2   1 2024-03-11 16:23:44     VT   -91 108.59    -91   filled</span></span>
-<span><span class="co">#&gt; 3   1                &lt;NA&gt;   TSLA   -28     NA      0 no_limit</span></span>
-<span><span class="co">#&gt; 4   1 2024-03-11 16:24:12   TSLA   -28 178.80      0 canceled</span></span>
-<span><span class="co">#&gt; 5   1 2024-03-11 16:24:26   TSLA   -28 178.68    -28   filled</span></span></code></pre></div>
+<span><span class="co">#&gt; 1   1 2024-03-12 14:45:13   AAPL   -57 172.66    -57   filled</span></span>
+<span><span class="co">#&gt; 2   1 2024-03-12 14:45:13   GOOG    71 139.67     71   filled</span></span>
+<span><span class="co">#&gt; 3   2 2024-03-12 14:45:31   AAPL   -57 172.68    -57   filled</span></span>
+<span><span class="co">#&gt; 4   2 2024-03-12 14:45:32   GOOG    71 139.10      0 canceled</span></span>
+<span><span class="co">#&gt; 5   2                &lt;NA&gt;   GOOG    71     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 6   2 2024-03-12 14:46:00   GOOG    71 139.05      0 canceled</span></span>
+<span><span class="co">#&gt; 7   2                &lt;NA&gt;   GOOG    71     NA      0 no_limit</span></span>
+<span><span class="co">#&gt; 8   2 2024-03-12 14:46:28   GOOG    71 139.62     71   filled</span></span></code></pre></div>
 <p>We can see how the portfolio drift converges to zero over time.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">attempts</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">drift_changes</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">run</span>, y <span class="op">=</span> <span class="va">drift</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">symbol</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="co">#&gt; `geom_line()`: Each group consists of only one observation.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Do you need to adjust the <span style="color: #00BB00;">group</span> aesthetic?</span></span></code></pre></div>
+<span><span class="op">}</span></span></code></pre></div>
 <p><img src="balance_or_die_files/figure-html/plot_drift-1.png" width="700"></p>
 <p>Here are the portfolio weights post-rebalance. You can see that we
 have managed to achieve our target balances (within tolerance).</p>
@@ -187,8 +188,8 @@ have managed to achieve our target balances (within tolerance).</p>
 <span>  <span class="fu">magrittr</span><span class="fu">::</span><span class="fu"><a href="https://magrittr.tidyverse.org/reference/aliases.html" class="external-link">extract2</a></span><span class="op">(</span><span class="st">"assets"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">symbol</span>, <span class="va">percent_held</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   symbol percent_held</span></span>
-<span><span class="co">#&gt; 1   AAPL        60.69</span></span>
-<span><span class="co">#&gt; 2   GOOG        29.62</span></span></code></pre></div>
+<span><span class="co">#&gt; 1   AAPL        59.97</span></span>
+<span><span class="co">#&gt; 2   GOOG        29.97</span></span></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

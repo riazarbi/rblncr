@@ -47,6 +47,7 @@ trader <- function(orders,
                           exit_if_market_closed = TRUE,
                           verbose = TRUE) {
   start <- Sys.time()
+  
   if(!(market_open(trading_connection)) & exit_if_market_closed) {
     if(verbose) {
       message("\n\nMARKET IS NOT OPEN. EXITING.\n")

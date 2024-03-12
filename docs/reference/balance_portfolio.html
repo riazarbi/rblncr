@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rblncr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.1</span>
       </span>
     </div>
 
@@ -76,6 +76,7 @@
 <span>  pricing_spread_tolerance <span class="op">=</span> <span class="fl">0.02</span>,</span>
 <span>  pricing_overrides <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  trader_life <span class="op">=</span> <span class="fl">30</span>,</span>
+<span>  exit_if_market_closed <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  resubmit_interval <span class="op">=</span> <span class="fl">5</span>,</span>
 <span>  buy_only <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -118,6 +119,10 @@
 
 <dt>trader_life</dt>
 <dd><p>duration in seconds that the <code><a href="trader.html">trader()</a></code> should keep trading before timing out</p></dd>
+
+
+<dt>exit_if_market_closed</dt>
+<dd><p>should the <code><a href="trader.html">trader()</a></code> quit if the market is closed</p></dd>
 
 
 <dt>resubmit_interval</dt>

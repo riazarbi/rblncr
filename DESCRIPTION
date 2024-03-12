@@ -1,6 +1,6 @@
 Package: rblncr
 Title: Automatically Rebalance Equity Portfolios
-Version: 0.9.0
+Version: 0.9.1
 Authors@R: 
     person(given = "Riaz",
            family = "Arbi",

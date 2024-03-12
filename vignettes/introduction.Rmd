@@ -151,7 +151,7 @@ The above code flow is useful if you want fine grained control of the rebalancin
 balance_portfolio(model,
                   t_conn,
                   d_conn,
-                  verbose = F)
+                  verbose = T)
 ```
 
 
