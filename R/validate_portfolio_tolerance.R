@@ -1,4 +1,4 @@
-validate_tolerance <- function(tolerance) {
+validate_portfolio_tolerance <- function(tolerance) {
   tests <- is.list(tolerance) & 
     identical(sort(names(tolerance)), c("percent")) &
     is.numeric(tolerance$percent) &

@@ -17,14 +17,14 @@ validate_account_class <- function(data) {
   
   # Check column names
   expected_column_names <- c("account_number", "status", "currency", "cash", "equity", "portfolio_value")
-  if (!all(validate_columns(data, expected_column_types))) {
-    stop("Error: Column types are incorrect.")
+  if (!all(expected_column_names %in% names(data))) {
+    stop("Error: Missing one or more columns.")
   }
   
   
   # Check column types
   expected_column_types <- c("character", "character", "character", "numeric", "numeric", "numeric")
-  if (!all(sapply(data, class) == expected_column_types)) {
+  if (!all(validate_columns(data, expected_column_types))) {
     stop("Error: Column types are incorrect.")
   }
   

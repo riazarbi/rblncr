@@ -16,9 +16,6 @@ get_positions <- function(connection) {
     stop("backend connection failed")
   }
 
-  # generic tests
-  test <- identical(colnames(positions), c("symbol", "quantity_held"))
-
   if(!test) {
     stop("data validation failed")
   } else {

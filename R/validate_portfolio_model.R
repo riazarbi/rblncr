@@ -9,6 +9,8 @@
 #' validate_portfolio_model(model)
 validate_portfolio_model <- function(portfolio_model) {
 
+  
+  
   if(!(validate_portfolio_elements(portfolio_model))) {
     stop("model contains unrecognised elements.")
   }
@@ -19,24 +21,29 @@ validate_portfolio_model <- function(portfolio_model) {
   if(!(validate_string(portfolio_model$description))) {
     stop("description element must be a string")
   }
-  if(!(validate_cash(portfolio_model$cash))) {
+  if(!(validate_portfolio_cash(portfolio_model$cash))) {
     stop("cash element validation failed")
   }
 
-  if(!validate_assets(portfolio_model$assets)  ) {
+  if(!validate_portfolio_assets(portfolio_model$assets)  ) {
     stop("assets element validation failed")
   }
 
-  if(!validate_tolerance(portfolio_model$tolerance)) {
+  if(!validate_portfolio_tolerance(portfolio_model$tolerance)) {
     stop("tolerance validation failed")
   }
-  if(!validate_cooldown(portfolio_model$cooldown)) {
+  if(!validate_portfolio_cooldown(portfolio_model$cooldown)) {
     stop("cooldown validation failed")
   }
 
-  if(!(validate_weights(portfolio_model$cash, portfolio_model$assets))) {
+  if(!(validate_portfolio_weights(portfolio_model$cash, portfolio_model$assets))) {
     stop("asset weights plus cash weights don't exactly equal 100.")
   }
 
-  return(TRUE)
+  # Add class "account"
+  if (!("portfolio" %in% class(portfolio_model))) {
+    class(portfolio_model) <- c("portfolio", class(portfolio_model))
+  }
+  
+  return(portfolio_model)
 }

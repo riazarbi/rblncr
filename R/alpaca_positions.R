@@ -8,5 +8,5 @@ alpaca_positions <- function(alpaca_connection) {
   positions <- dplyr::select(positions, "symbol", "qty")
   positions <- dplyr::rename(positions, quantity_held = "qty")
   positions <- dplyr::mutate(positions, quantity_held = as.numeric(.data$quantity_held))
-  positions
+  positions <- validate_positions_class(positions)
 }

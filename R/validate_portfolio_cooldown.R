@@ -1,4 +1,4 @@
-validate_cooldown <- function(cooldown) {
+validate_portfolio_cooldown <- function(cooldown) {
   tests <- is.list(cooldown) &
     identical(sort(names(cooldown)), c("days")) &
     is.numeric(cooldown$days) &

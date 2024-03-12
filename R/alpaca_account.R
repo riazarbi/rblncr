@@ -8,5 +8,6 @@ alpaca_account <- function(alpaca_connection) {
                       cash = as.numeric(cash), 
                       equity = as.numeric(equity), 
                       portfolio_value = as.numeric(portfolio_value))
+  df <- validate_account_class(df)
   return(df)
 }

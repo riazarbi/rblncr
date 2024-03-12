@@ -1,4 +1,4 @@
-validate_cash <- function(cash) {
+validate_portfolio_cash <- function(cash) {
   tests <- is.list(cash) &
     !(is.data.frame(cash)) &
     identical(sort(names(cash)), c("percent")) &

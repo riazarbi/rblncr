@@ -5,5 +5,6 @@ alpaca_clock <- function(alpaca_connection) {
                       timestamp = lubridate::ymd_hms(timestamp),
                       next_open = lubridate::ymd_hms(next_open),
                       next_close = lubridate::ymd_hms(next_close))
+  df <- validate_clock_class(df)
   df
 }
