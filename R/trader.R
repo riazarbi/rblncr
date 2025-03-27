@@ -71,7 +71,7 @@ trader <- function(orders,
   while(!timed_out & !no_orders) {
 
     if(verbose){message(paste0("there are ", nrow(new_orders), " new orders to fill"))}
-
+    if(verbose){message(paste0(new_orders))}
     if(verbose){message(paste0(" - pricing new orders"))}
 
     if(!is.null(pricing_overrides)) {
@@ -83,9 +83,14 @@ trader <- function(orders,
         apply_price_limits(pricing_connection, spread_tolerance = pricing_spread_tolerance)
     }
 
+    if(all(is.na(orders_priced$limit))){
+      if(verbose){message(paste0(" - no orders meet pricing constraints. Submitting dummy order."))}
+    } 
+    
     if(verbose){message(paste0(" - submitting orders"))}
     submitted <- submit_orders(orders_priced, trading_connection)
-
+    
+    
     if(verbose){message(paste0(" - waiting ",resubmit_interval," seconds for orders to fill"))}
     Sys.sleep(resubmit_interval)
 
@@ -140,7 +145,6 @@ trader <- function(orders,
                                                   .data$filled))
 
     if(verbose){message(paste0(" - calculating remaining order amounts"))}
-    # BUG: IF FILLED NA, KICKS OUT ORDER
     new_orders <- dplyr::mutate(order_status, order = .data$order - .data$filled)
     new_orders <- dplyr::mutate(new_orders, value = .data$order * .data$limit)
     new_orders <- dplyr::select(new_orders, "symbol", "order", "value")
@@ -180,7 +184,7 @@ trader <- function(orders,
     }
     return(hstry)
   } else {
-    stop("not sure why, but the function exited unexpectedly.")
+    stop("not sure why, but the trader function exited unexpectedly.")
   }
 
 }

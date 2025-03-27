@@ -20,12 +20,11 @@ See <https://riazarbi.github.io/rblncr>
 
 You can install the development version of rblncr from [GitHub](https://github.com/) with:
 
-```r
+``` r
 devtools::install_github("riazarbi/rblncr")
 ```
 
 No CRAN submission currently planned.
-
 
 ## Example
 
@@ -51,18 +50,18 @@ get_portfolio_current(t_conn) |>
         verbose = TRUE)
 ```
 
-Alternatively you could use the wrapper `balance_portfolio` function to achieve the above. 
+Alternatively you could use the wrapper `balance_portfolio` function to achieve the above.
 
-```r
+``` r
 balance_portfolio(portfolio_model,
                   t_conn,
                   d_conn,
                   verbose = F)
 ```
 
-Note that `balance_portfolio` does not guarantee that the portfolio will be balanced by the end of execution. For instance, your orders could fail to find a buyer before cancellation. To _guarantee_ that your portfolio rebalances, consider placing your code in a `while` loop.
+Note that `balance_portfolio` does not guarantee that the portfolio will be balanced by the end of execution. For instance, your orders could fail to find a buyer before cancellation. To *guarantee* that your portfolio rebalances, consider placing your code in a `while` loop.
 
-```
+```         
 $portfolio_balanced
 [1] FALSE
 
@@ -81,22 +80,23 @@ $trades
 4 2022-11-02 13:44:23     VT   118  83.87      0 canceled
 5 2022-11-02 13:44:33     VT   118  83.88      0 canceled
 ```
+
 ## Similar Packages
 
 Here are some R packages that are similar or adjacent to this package. This does not constitute an endorsement.
 
-- [alpacaforr](https://github.com/yogat3ch/AlpacaforR): Interact with Alpaca from R
-- [backtest](https://cran.r-project.org/package=backtest): The backtest package provides facilities for exploring portfolio-based conjectures about financial instruments (stocks, bonds, swaps, options, et cetera). 
-- [portfolio](https://cran.r-project.org/package=portfolio): Classes for analysing and implementing equity portfolios, including routines for generating tradelists and calculating exposures to user-specified risk factors.
-- [strand](https://cran.r-project.org/package=strand): Provides a framework for performing discrete (share-level) simulations of investment strategies.
+-   [alpacaforr](https://github.com/yogat3ch/AlpacaforR): Interact with Alpaca from R
+-   [backtest](https://cran.r-project.org/package=backtest): The backtest package provides facilities for exploring portfolio-based conjectures about financial instruments (stocks, bonds, swaps, options, et cetera).
+-   [portfolio](https://cran.r-project.org/package=portfolio): Classes for analysing and implementing equity portfolios, including routines for generating tradelists and calculating exposures to user-specified risk factors.
+-   [strand](https://cran.r-project.org/package=strand): Provides a framework for performing discrete (share-level) simulations of investment strategies.
 
 ## Package Development
 
-I use `devtools` to develop. A good guide for R package development is here https://r-pkgs.org.
+I use `devtools` to develop. A good guide for R package development is here <https://r-pkgs.org>.
 
 My development workflow looks like this.
 
-```
+```         
 library(devtools)
 load_all()
 test()
@@ -108,8 +108,8 @@ If markets are open I can run `check()` and the vignettes will knit.
 
 I use `pkgdown` to build the package website for `rblncr`.
 
-To build the site, enter 
+To build the site, enter
 
-```
+```         
 pkgdown::build_site()
 ```

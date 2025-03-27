@@ -65,7 +65,8 @@ balance_portfolio <- function(portfolio_model,
     asset_drift <- abs(solved_portfolio$assets$value_held / solved_portfolio$assets$optimal_value - 1)
     asset_max_drift <- max(asset_drift)
     cash_drift <- abs(solved_portfolio$cash$optimal_value / solved_portfolio$cash$value_held - 1)
-    max_drift <- round(max(asset_max_drift, cash_drift) * 100, 2)
+    max_drift <- round(min(max(asset_max_drift, cash_drift) * 100, 2),200)
+
 
     asset_drift_df <- data.frame(symbol = solved_portfolio$assets$symbol,
                                  drift = round(100*asset_drift,2))
