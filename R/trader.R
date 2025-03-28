@@ -71,7 +71,7 @@ trader <- function(orders,
   while(!timed_out & !no_orders) {
 
     if(verbose){message(paste0("there are ", nrow(new_orders), " new orders to fill"))}
-    if(verbose){message(paste0(new_orders))}
+    if(verbose){message(paste0(new_orders, sep = " | "))}
     if(verbose){message(paste0(" - pricing new orders"))}
 
     if(!is.null(pricing_overrides)) {

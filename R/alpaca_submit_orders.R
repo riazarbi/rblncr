@@ -40,7 +40,7 @@ alpaca_submit_orders <- function(orders, alpaca_connection) {
                               function(order)
                               {
 
-                                httr::POST("https://paper-api.alpaca.markets/v2/orders",
+                                httr::POST(paste0(alpaca_connection$domain,"/v2/orders"),
                                            body = as.list(order),
                                            encode = "json",
                                            alpaca_connection$headers)
